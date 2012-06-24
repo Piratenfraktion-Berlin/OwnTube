@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% load custom_filters %}
+{% block title %} - {{ video.title }}{% endblock %}
+{% block head %}
+<script type="text/javascript" src="{{ STATIC_URL }}/projekktor/projekktor.min.js"></script>
+<script src="{{ STATIC_URL }}/audiojs/audio.min.js"></script>
+<link rel="stylesheet" href="{{ STATIC_URL }}/projekktor/theme/style.css" type="text/css" media="screen" />
+{% endblock %}
+{% block active1 %}class="active"{% endblock %}
+{% block body %}
+<h1>{{ video.title }}</h1>
+<div class="row">
+<div class="span8">
+  {% if video.mp4URL or video.webmURL %}
+  <div class=row>
+  <div class="span8">
+  <video id="player_a" class="projekktor" poster="{{ video.videoThumbURL }}" title="{{ video.title }}" width="640" height="360" controls>
+    {% if video.webmURL %}<source src="{{ video.webmURL }}" type="video/webm" />{% endif %}
+    {% if video.mp4URL %}<source src="{{ video.mp4URL }}" type="video/mp4" />{% endif %}
+  </video>
+  </div>
+  </div>
+  {% endif %}
+  {% if video.mp3URL %}
+  <div class="row">
+  <div class="span8">
+  <h2>Audio:</h2>
+	<audio source src="{{ video.mp3URL }}" preload="none"/>
+  </div>
+  </div>
+  {% endif %}
+  </div>
+  <div class="span4">
+  <h2>Meta</h2>
+  <div class="well">
+  <dl>
+  <dt>Datum</dt>
+  <dd>{{ video.date }}</dd>
+  <dt>Beschreibung<dt>
+  <dd>{{ video.description }}</dd>
+  {% if video.protocolURL %}
+  <dt>Protokoll:</dt>
+  <dd><a href="{{ video.protocolURL }}" target="_Blank">{{ video.protocolURL }}</a></dd>
+  {% endif %}
+  {% if video.duration %}
+  <dt>Dauer:</dt>
+  <dd>{{ video.duration|secondstohms }}</dd>
+  {% endif %}
+  {% if video.torrentURL %}
+  <dt>Torrent:</dt>
+  <dd><a href="{{ video.torrentURL }}">Download Original</a></dd>
+  {% endif %}
+  <dt>Download:</dt>
+  {% if video.mp4URL %}<dd><a href="{{ video.mp4URL }}">Download MP4 Video</a></dd>{% endif %}
+  {% if video.webmURL %}<dd><a href="{{ video.webmURL }}">Download WEBM Video</a></dd>{% endif %}
+  {% if video.mp3URL %}<dd><a href="{{ video.mp3URL }}">Download MP3 Audio</a></dd>{% endif %}
+  {% if video.oggURL %}<dd><a href="{{ video.oggURL }}">Download OGG Audio</a></dd>{% endif %}
+  </div>
+  <h2>Tags</h2>
+  <div class="well">
+  <ul>
+        {% for tag in video.tags.all %}
+            <li><a href="/tags/{{ tag.name }}/">{{ tag.name }}</a></li>
+        {% endfor %}
+  </ul>
+  </div>
+  </div>
+  <div class="span8">
+  <h2>Kommentare</h2>
+  {% if comments %}
+  {% for comment in comments %}
+  <div class="row">
+  <div class="span8">
+  <div class="well">
+  <strong>Name: </strong>{{ comment.name }} {% if comment.timecode %} &bull; <strong>Zeit: </strong><a class="timecode">{{ comment.timecode }}</a>{% endif %}
+  <div class="comment-body">
+  {{ comment.comment }}
+  </div>
+  </div>
+  </div>
+  </div>
+  {% endfor %}
+  {% else %}
+  <div class="row">
+  <div class="span8">
+  <div class="well">
+  <p>Bis jetzt keine Kommentare</p>
+  </div>
+  </div>
+  </div>
+  {% endif %}
+  {% if message %}
+  <div class="alert">
+  {{ message }}
+  </div>
+  {% endif %}
+  <form enctype="multipart/form-data" class="form-horizontal" action="/videos/{{ video.slug }}/" method="post">{% csrf_token %}
+    {% for field in comment_form %}
+    	<div class="control-group">
+    		{% if field.errors %}
+    		<div class="alert alert-error">
+				<strong>Fehler! </strong>{{ field.errors }}
+			</div>
+    		{% endif %}
+			<div class="control-label">
+        	{{ field.label_tag }}
+        	</div>
+        	<div class="controls">
+        	{{ field }}
+        	</div>
+        </div>
+    {% endfor %}
+<div class="form-actions">
+<input type="submit" class="btn btn-primary" value="Senden" />
+</div>
+</form>
+  </div>
+{% endblock %}
+{% block javascript %}
+<script type="text/javascript">
+		  {% if video.mp4URL or video.webmURL %}
+         $(document).ready(function() {
+         	   var timeListener = function(value) {	
+					$('#id_timecode').val( value.toFixed(2) )
+  				}
+    
+               var player = projekktor('.projekktor', {
+	                /* path to the MP4 Flash-player fallback component */
+	                playerFlashMP4:		'http://owntube.pltzchn.de/static/projekktor/jarisplayer.swf',
+	        
+	                /* path to the MP3 Flash-player fallback component */
+	                playerFlashMP3:		'http://owntube.pltzchn.de/static/projekktor/jarisplayer.swf',  
+               });
+               
+               player.addListener('time', timeListener);
+
+			  $('.timecode').click(function(){
+			    console.log(this.text);
+			  	player.setPlayhead(parseFloat(this.text)); 
+			  	return false;
+			  	})
+			  
+         });         
+         {% endif %}
+</script>
+<script>
+  audiojs.events.ready(function() {
+    var as = audiojs.createAll();
+  });
+</script>
+{% endblock %}

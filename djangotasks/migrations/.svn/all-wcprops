@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 33
+/svn/!svn/ver/44/trunk/migrations
+END
+0002_auto__add_functiontask.py
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/36/trunk/migrations/0002_auto__add_functiontask.py
+END
+0001_initial.py
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/36/trunk/migrations/0001_initial.py
+END
+0003_auto__chg_field_functiontask_function_name.py
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/44/trunk/migrations/0003_auto__chg_field_functiontask_function_name.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/36/trunk/migrations/__init__.py
+END

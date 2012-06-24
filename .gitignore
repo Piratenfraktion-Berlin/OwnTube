@@ -1,0 +1,7 @@
+*.log
+*.pot
+*.pyc
+local_settings.py
+settings.py
+media/*
+static_files/*

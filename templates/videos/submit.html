@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block active5 %}
+class="active"
+{% endblock %}
+{% block title %} - Hochladen{% endblock %}
+{% block head %}
+<script type="text/javascript" src="{{ STATIC_URL }}/jquery.form.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}/date.format.js"></script>
+{% endblock %}
+{% block body %}
+<div class="page-header">
+<h1>Hochladen</h1>
+</div>
+<div class=row">
+<div class="span6">
+<form id="videoForm" enctype="multipart/form-data" class="form-horizontal" action="/submit/" method="post">{% csrf_token %}
+    {% for field in submit_form %}
+    	<div class="control-group">
+    		{% if field.errors %}
+    		<div class="alert alert-error">
+				<strong>Fehler! </strong>{{ field.errors }}</p>
+			</div>
+    		{% endif %}
+			<div class="control-label">
+        	{{ field.label_tag }}
+        	</div>
+        	<div class="controls">
+        	{{ field }}
+        	</div>
+        </div>
+    {% endfor %}
+    <div id="progress-indicator">
+	<div class="progress progress-striped active">
+        <div class="bar"></div >
+	</div>
+	<div class="percent">0%</div >
+	</div>
+<div class="form-actions">
+<input type="submit" class="btn btn-primary" value="Hochladen" />
+</div>
+</form>
+</div>
+</div>
+{% endblock %}
+{% block javascript %}
+<script> 
+   
+$(document).ready(function() {
+  var now = new Date();
+  var formatted = now.format("dd.mm.yyyy");
+  $('#id_date').val(formatted); 
+  $('#progress-indicator').hide();
+  var bar = $('.bar');
+  var percent = $('.percent');
+   
+  $('#videoForm').ajaxForm({
+    beforeSend: function() {
+		$('#progress-indicator').show();
+        var percentVal = '0%';
+        bar.width(percentVal)
+        percent.html(percentVal);
+    },
+    uploadProgress: function(event, position, total, percentComplete) {
+        var percentVal = percentComplete + '%';
+        bar.width(percentVal)
+        percent.html(percentVal);
+    },
+	complete: function(xhr) {
+		alert("Danke, ihr Video wird trancodiert und sollte bald zur Verfügung stehen");
+		window.location.href = "/";
+	}
+  }); 
+
+});
+</script>
+{% endblock %}

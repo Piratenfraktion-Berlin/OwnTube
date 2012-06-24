@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load custom_filters %}
+{% block active2 %}class="active"{% endblock %}
+{% block body %}
+<div class="page-header">
+<h1>Streams <small>N&auml;chste Termine:</small></h1>
+</div>
+<div class="row">
+<div class="span8">
+{% if stream_list %}
+{% for stream in stream_list %}
+<div class="well">
+<h2><a href="{{ stream.get_absolute_url }}">{{ stream.title }}</a></h2>
+<p>{{ stream.description }}</p>
+<p><strong>Start: </strong>{{ stream.startDate }} &bull; <strong>Ende: </strong>{{ stream.endDate }}</p> 
+</div>
+{% endfor %}
+{% else %}
+<div class="well">
+<p>Zur Zeit sind keine Streams geplant</p>
+</div>
+{% endif %}
+</div>
+<div class="span4">
+<div class=well>
+<ul class="nav nav-list">
+  <li class="nav-header">
+    Feeds
+  </li>
+  <li>
+    <a href="/feeds/stream/upcoming/">Die n&auml;chsten Events</a>
+  </li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}

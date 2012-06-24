@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block active1 %}
+class="active"
+{% endblock %}
+{% load custom_filters %}
+{% block body %}
+<div class="page-header">
+<h1>Tag: {{ tag }}</h1>
+</div>
+<div class="row">
+<div class="span8">
+{% if videos_list %}
+    {% for video in videos_list %}
+    <div class="row">
+    <div class="span4 well">
+        <a href="/videos/{{ video.slug }}/"><h4>{{ video.title }}</h4></a>
+        <p><strong>Datum: </strong>{{ video.date }}{% if video.duration %} &bull; <strong>Länge: </strong>{{ video.duration|secondstohms }}{% endif %}</p>
+	</div>
+	</div>
+    {% endfor %}
+{% else %}
+    <p>No videos are available.</p>
+{% endif %}
+</div>
+<div class="span4">
+<div class=well>
+<ul class="nav nav-list">
+  <li class="nav-header">
+    Original Material
+  </li>
+  <li>
+    <a href="/feeds/latest/torrent/"">Torrents-Feed</a>
+  </li>
+  <li class="nav-header">
+    Video-Podcast
+  </li>
+  <li>
+    <a href="/feeds/latest/mp4/">MP4-Format</a>
+  </li>
+  <li>
+    <a href="/feeds/latest/webm/">WEBM-Format</a>
+  </li>
+  <li class="nav-header">
+    Audio-Podcast
+  </li>
+  <li>
+    <a href="/feeds/latest/mp3/">MP3-Format</a>
+  </li>
+  <li>
+    <a href="/feeds/latest/ogg/">OGG-Format</a>
+  </li>
+  <li class="divider"></li>
+  <li>
+  	<a href="mailto:pbrechler@mac.com"><i class="icon-bullhorn"></i> Kontakt</a>
+  </li>
+</ul>
+</div>
+</div>
+	</div>
+{% endblock %}

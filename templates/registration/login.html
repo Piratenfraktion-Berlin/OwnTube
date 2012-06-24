@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load custom_filters %}
+{% block active8 %}class="active"{% endblock %}
+{% block body %}
+<div class="page-header">
+<h1>Login</h1>
+</div>
+
+
+<div class=row>
+<div class="span6">
+{% if form.errors %}
+<div class="alert alert-error">
+<strong>Warnung! </strong>Benutzername oder Passwort stimmen nicht, bitte noch mal versuchen.</p>
+</div>
+{% endif %}
+<form method="post" class="form-horizontal" action="{% url django.contrib.auth.views.login %}">
+{% csrf_token %}
+<div class="control-group">
+<div class="control-label">
+{{ form.username.label_tag }}
+</div>
+<div class="controls">
+{{ form.username }}
+</div>
+</div>
+<div class="control-group">
+<div class="control-label">
+{{ form.password.label_tag }}
+</div>
+<div class="controls">
+{{ form.password }}
+</div>
+</div>
+<div class="form-actions">
+<input type="submit" class="btn btn-primary" value="Login" />
+<input type="hidden" name="next" value="/" />
+</div>
+</form>
+</div>
+</div>
+{% endblock %}
