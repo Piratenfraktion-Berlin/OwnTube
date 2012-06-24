@@ -1,0 +1,105 @@
+# VIDEO AND AUDIO
+
+{
+  "steps": {
+    "encode_iphone": {
+      "robot": "/video/encode",
+      "preset": "iphone",
+      "use": ":original"
+    },
+    "encode_webm": {
+      "robot": "/video/encode",
+      "preset": "webm",
+      "use": ":original"
+    },
+    "encode_mp3": {
+    "robot": "/audio/encode",
+    "sample_rate": 44100,
+    "bitrate": 64000,
+    "use": ":original"
+  },
+  "encode_ogg": {
+    "robot": "/audio/encode",
+    "ffmpeg": {
+      "acodec": "libvorbis",
+      "f": "ogg"
+    }
+  },
+    "create_thumb": {
+      "robot": "/video/thumbs",
+      "use": ":original",
+      "count": 1,
+      "offsets": [1],
+      "width": 420,
+      "height": 320
+    },
+    "export": {
+      "robot": "/sftp/store",
+      "user": "roboter",
+      "host": "your.host",
+      "use": ["encode_iphone", "encode_webm","encode_mp3","encode_ogg","create_thumb"],
+      "path": "uploads/${unique_prefix}/${file.url_name}",
+      "url_template": "http://videos.pltzchn.de/${unique_prefix}/${file.url_name}"
+    }
+  }
+}
+
+# VIDEO ONLY
+
+{
+  "steps": {
+    "encode_iphone": {
+      "robot": "/video/encode",
+      "preset": "iphone",
+      "use": ":original"
+    },
+    "encode_webm": {
+      "robot": "/video/encode",
+      "preset": "webm",
+      "use": ":original"
+    },
+    "create_thumb": {
+      "robot": "/video/thumbs",
+      "use": ":original",
+      "count": 1,
+      "offsets": [1],
+      "width": 420,
+      "height": 320
+    },
+    "export": {
+      "robot": "/sftp/store",
+      "user": "roboter",
+      "host": "your.host",
+      "use": ["encode_iphone", "encode_webm", "create_thumb"],
+      "path": "uploads/${unique_prefix}/${file.url_name}",
+      "url_template": "http://videos.pltzchn.de/${unique_prefix}/${file.url_name}"
+    }
+  }
+}
+
+# AUDIO ONLY
+
+{"steps":{
+    "encode_mp3": {
+    "robot": "/audio/encode",
+    "sample_rate": 44100,
+    "bitrate": 64000,
+    "use": ":original"
+  },
+  "encode_ogg": {
+    "robot": "/audio/encode",
+    "ffmpeg": {
+      "acodec": "libvorbis",
+      "f": "ogg"
+    }
+  },
+    "export": {
+      "robot": "/sftp/store",
+      "user": "roboter",
+      "host": "your.host",
+      "use": ["encode_mp3","encode_ogg"],
+      "path": "uploads/${unique_prefix}/${file.url_name}",
+      "url_template": "http://videos.pltzchn.de/${unique_prefix}/${file.url_name}"
+    }
+  }
+}
