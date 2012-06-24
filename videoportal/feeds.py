@@ -6,8 +6,7 @@ import appsettings as settings
 import os
 
 class LatestMP4Videos(Feed):
-''' This class (like the following) are handling the feed requests from
-    urls.py.
+    ''' This class (like the following) are handling the feed requests from urls.py.
     TODO:
     Better handling: We sould only use one Feed class and get the desired format with GET
     Dynamic Title for the Feed''' 

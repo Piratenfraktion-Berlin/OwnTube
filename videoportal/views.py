@@ -32,7 +32,7 @@ from traceback import print_exc
 from sys import argv
 
 def list(request):
-''' This view is the front page of OwnTube. It just gets the first 15 available video and
+    ''' This view is the front page of OwnTube. It just gets the first 15 available video and
     forwards them to the template. We use Django's Paginator to have pagination '''
     latest_videos_list = Video.objects.filter(encodingDone=True).order_by('-date')
     paginator = Paginator(latest_videos_list,15)
@@ -51,7 +51,7 @@ def list(request):
 
 
 def detail(request, slug):
-''' Handles the detail view of a video (the player so to say) and handles the comments (this should become nicer with AJAX and stuff)'''
+    ''' Handles the detail view of a video (the player so to say) and handles the comments (this should become nicer with AJAX and stuff)'''
     if request.method == 'POST':
             comment = Comment(video=Video.objects.get(slug=slug),ip=request.META["REMOTE_ADDR"])
             video = get_object_or_404(Video, slug=slug)
@@ -72,13 +72,13 @@ def detail(request, slug):
         return render_to_response('videos/detail.html', {'video': video, 'comment_form': form, 'comments': comments},
                             context_instance=RequestContext(request))
 def tag(request, tag):
-''' Gets all videos for a specified tag'''
+    ''' Gets all videos for a specified tag'''
     videolist = Video.objects.filter(encodingDone=True, tags__name__in=[tag]).order_by('-date')
     return render_to_response('videos/list.html', {'videos_list': videolist, 'tag':tag},
                             context_instance=RequestContext(request))
                             
 def search(request):
-''' The search view for handling the search using Django's "Q"-class (see normlize_query and get_query)'''
+    ''' The search view for handling the search using Django's "Q"-class (see normlize_query and get_query)'''
     query_string = ''
     found_entries = None
     if ('q' in request.GET) and request.GET['q'].strip():
@@ -94,7 +94,7 @@ def search(request):
                             
 @login_required(login_url='/login/')
 def submit(request):
-''' The view for uploading the videos. Only authenticated users can upload videos!
+    ''' The view for uploading the videos. Only authenticated users can upload videos!
     If we use transloadit to encode the videos we use the more or less official python
     "API" to ask transloadit to transcode our files otherwise we use django tasks to make
     a new task task for encoding this video. If we use bittorrent to distribute our files
@@ -171,7 +171,7 @@ def submit(request):
                             context_instance=RequestContext(request))
 @csrf_exempt
 def encodingdone(request):
-''' This is a somewhat special view: It is called by transloadit to tell
+    ''' This is a somewhat special view: It is called by transloadit to tell
     OwnTube that the encoding process is done. The view then parses the
     JSON data in the POST request send by transloadit and than get this information
     into our video model. Of course it can be possible for attackers to alter videos

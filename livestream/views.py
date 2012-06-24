@@ -10,7 +10,7 @@ import datetime
 
 
 def current(request):
-''' This view gets all streams that are scheduled to be live right now
+    ''' This view gets all streams that are scheduled to be live right now
     if there are no streams it redirects to the liste view. The upcoming_streams_list
     is used to show upcoming events in a side bar (see the template)'''
 	stream_list = Stream.objects.filter(published=True,startDate__lt=datetime.datetime.now, endDate__gt=datetime.datetime.now).order_by('-startDate')
@@ -23,14 +23,14 @@ def current(request):
 
 
 def list(request):
-''' This view shows gets all upcoming streaming events
+    ''' This view shows gets all upcoming streaming events
     and forwards them to our template '''
     stream_list = Stream.objects.filter(published=True,endDate__gt=datetime.datetime.now).order_by('-startDate')
     return render_to_response('livestream/list.html', {'stream_list': stream_list},
                             context_instance=RequestContext(request))
 
 def detail(request, slug):
-''' This view shows the detail of a stream, it is used to
+    ''' This view shows the detail of a stream, it is used to
     show the user more information on one event but not
     for showing the player'''
     stream = get_object_or_404(Stream, slug=slug)
