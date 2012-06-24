@@ -6,6 +6,10 @@ from autoslug import AutoSlugField
 # Create your models here.
 
 class Stream(models.Model):
+''' This is the model for each live stream event nothing really special
+    except for the iframe field maybe. It contains the loaded iframe for 
+    each stream event and is marked as safe. Maybe we change this or add
+    support for streams directly loaded into Projekktor'''
     title = models.CharField("Stream-Titel",max_length=200)
     slug = AutoSlugField(populate_from='title',unique=True)
     startDate = models.DateTimeField("Start der Veranstaltung")

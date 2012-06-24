@@ -3,7 +3,7 @@ from django import forms
 from django.template import RequestContext
 from django.http import HttpResponseRedirect, HttpResponse
 
-# Create your views here.
+# All this views are just showing static pages not really usefull
 
 def contact(request):
     return render_to_response('static_pages/contact.html',context_instance=RequestContext(request))

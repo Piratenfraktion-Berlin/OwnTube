@@ -33,6 +33,12 @@ KIND_CHOICES = (
 )
 
 class Video(models.Model):
+''' The model for our videos. It uses slugs (with DjangoAutoSlug) and tags (with Taggit)
+    everything else is quite standard. The sizes fields are used in the feeds to make enclosures
+    possible. The videoThumbURL is the URL for Projekktor's "poster" and assemblyid is just a storage
+    for the result we get back from transloadit so that we know which video just triggered the "encoding_done"
+    view. Why are there URL fields and not file fields? Because you maybe want to use external storage
+    (like Amazon S3) to store your files '''
     title = models.CharField(u"Titel",max_length=200)
     slug = AutoSlugField(populate_from='title',unique=True)
     date = models.DateField("Datum")
@@ -63,7 +69,7 @@ class Video(models.Model):
         return "/videos/%s/" % self.slug
 
     def encode_media(self):
-        
+    ''' This is used to tell ffmpeg what to do '''
         kind = self.kind
         path = self.originalFile.path
         name_array = os.path.basename(self.originalFile.path).partition('.')
@@ -160,6 +166,7 @@ class Video(models.Model):
         self.save()
         
     def create_bittorrent(self):
+    ''' This is where the bittorrent files are created'''
         flag = Event()
         make_meta_file(str(self.originalFile.path), settings.BITTORRENT_TRACKER_ANNOUNCE_URL, flag = flag, progress_percent=0, piece_len_exp = 18, target = settings.BITTORRENT_FILES_DIR + self.slug + '.torrent')
         self.torrentURL = settings.BITTORRENT_FILES_BASE_URL + self.slug + '.torrent'
@@ -174,6 +181,7 @@ class Video(models.Model):
         self.save()
         
 class Comment(models.Model):
+''' The model for our comments, please note that (right now) OwnTube comments are moderated only'''
     name = models.CharField(u"Name",max_length=30)
     ip = models.IPAddressField("IP",blank=True,null=True)
     moderated = models.BooleanField()
@@ -187,6 +195,7 @@ class Comment(models.Model):
         return self.comment
     
 def getLength(filename):
+''' Just a little helper to get the duration (in seconds) from a video file using ffmpeg '''
     process = subprocess.Popen(['ffmpeg',  '-i', filename], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     stdout, stderr = process.communicate()
     matches = re.search(r"Duration:\s{1}(?P<hours>\d+?):(?P<minutes>\d+?):(?P<seconds>\d+\.\d+?),", stdout, re.DOTALL).groupdict()
