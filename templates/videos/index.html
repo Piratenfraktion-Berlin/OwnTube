@@ -23,7 +23,8 @@ class="active"
 	<img src="{{ STATIC_URL }}/default-audio.png" width="100px" style="float:left; margin:0 10px 0 0;"/>
 	{% endif %}
         <a href="/videos/{{ video.slug }}/"><h4>{{ video.title }}</h4></a>
-        <p><strong>Datum: </strong>{{ video.date }}{% if video.duration %} &bull; <strong>Länge: </strong>{{ video.duration|secondstohms }}{% endif %}</p>
+	<span><strong>Beschreibung: </strong>{{ video.description|truncatechars:100 }}</span><br/>
+        <span><strong>Datum: </strong>{{ video.date }}{% if video.duration %} &bull; <strong>Länge: </strong>{{ video.duration|secondstohms }}{% endif %}</span>
 	</div>
 	</div>
     {% endfor %}
