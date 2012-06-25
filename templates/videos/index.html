@@ -12,7 +12,16 @@ class="active"
 {% if latest_videos_list %}
     {% for video in latest_videos_list %}
     <div class="row">
-    <div class="span4 well">
+    <div class="span6 well">
+	{% if video.kind != 1 %}
+	{% if video.videoThumbURL %}
+	<img src="{{ video.videoThumbURL }}" width="100px" style="float:left; margin:0 10px 0 0;"/>
+	{% else %}
+	<img src="{{ STATIC_URL }}/missing_thumb_video.png" width="100px" style="float:left; margin:0 10px 0 0;"/>
+	{% endif %}
+	{% else %}
+	<img src="{{ STATIC_URL }}/missing_thumb_audio.png" width="100px" style="float:left; margin:0 10px 0 0;"/>
+	{% endif %}
         <a href="/videos/{{ video.slug }}/"><h4>{{ video.title }}</h4></a>
         <p><strong>Datum: </strong>{{ video.date }}{% if video.duration %} &bull; <strong>Länge: </strong>{{ video.duration|secondstohms }}{% endif %}</p>
 	</div>
