@@ -34,7 +34,7 @@ from sys import argv
 def list(request):
     ''' This view is the front page of OwnTube. It just gets the first 15 available video and
     forwards them to the template. We use Django's Paginator to have pagination '''
-    latest_videos_list = Video.objects.filter(encodingDone=True).order_by('-date')
+    latest_videos_list = Video.objects.filter(encodingDone=True).order_by('-date','-modified')
     paginator = Paginator(latest_videos_list,15)
     
     page = request.GET.get('page')

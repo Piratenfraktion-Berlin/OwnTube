@@ -7,7 +7,7 @@ sys.path.append('/opt/owntube')
 sys.path.append('/opt/owntube/owntube')
 sys.path.append('/opt/owntube/owntube/vidoes')
 
-site.addsitedir('/opt/owntube/lib/python2.6/site-packages')
+site.addsitedir('/opt/owntube/lib/python2.7/site-packages')
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'owntube.settings'
 

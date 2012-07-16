@@ -2,6 +2,12 @@
 import os
 import sys
 
+import site
+import owntube.settings as settings
+
+if settings.VIRTUALENV:
+    site.addsitedir(settings.VIRTUALENV)
+
 if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "owntube.settings")
 

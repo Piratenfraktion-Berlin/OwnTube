@@ -52,8 +52,8 @@ $(document).ready(function() {
   $('#progress-indicator').hide();
   var bar = $('.bar');
   var percent = $('.percent');
-   
-  $('#videoForm').ajaxForm({
+
+ $('#videoForm').ajaxForm({
     beforeSend: function() {
 		$('#progress-indicator').show();
         var percentVal = '0%';
@@ -70,7 +70,6 @@ $(document).ready(function() {
 		window.location.href = "/";
 	}
   }); 
-
 });
 </script>
 {% endblock %}
