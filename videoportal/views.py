@@ -196,8 +196,6 @@ def encodingdone(request):
                 video.webmSize = resultFirst['size']
                 resultItem = results[settings.TRANSLOAD_THUMB_ENCODE]
                 resultFirst = resultItem[0]
-                video.videoThumbURL = resultFirst['url']
-                os.remove(video.originalFile.path)
                 video.originalFile = ""
             elif (video.kind == 1):
                 results = data['results']
@@ -211,8 +209,6 @@ def encodingdone(request):
                 resultFirst = resultItem[0]
                 video.oggURL = resultFirst['url']
                 video.oggSize = resultFirst['size']
-                os.remove(video.originalFile.path)
-                video.originalFile = ""
             elif (video.kind == 2):
                 results = data['results']
                 resultItem = results[settings.TRANSLOAD_MP4_ENCODE]
@@ -236,8 +232,6 @@ def encodingdone(request):
                 resultItem = results[settings.TRANSLOAD_THUMB_ENCODE]
                 resultFirst = resultItem[0]
                 video.videoThumbURL = resultFirst['url']
-                os.remove(video.originalFile.path)
-                video.originalFile = ""
             video.encodingDone = True
             video.save()
         except Video.DoesNotExist:
