@@ -52,7 +52,7 @@ $(document).ready(function() {
   $('#progress-indicator').hide();
   var bar = $('.bar');
   var percent = $('.percent');
-   
+
   $('#videoForm').ajaxForm({
     beforeSend: function() {
 		$('#progress-indicator').show();
@@ -66,8 +66,12 @@ $(document).ready(function() {
         percent.html(percentVal);
     },
 	complete: function(xhr) {
-		alert("Danke, ihr Video wird trancodiert und sollte bald zur Verfügung stehen");
-		window.location.href = "/";
+		if (xhr.status == 200){
+			alert("Danke, ihr Video wird trancodiert und sollte bald zur Verfügung stehen");
+                	window.location.href = "/";
+		}else {
+			alert("Tut uns leid, das hat nicht geklappt, bitte noch mal versuchen oder den Admin nerven");
+		}
 	}
   }); 
 

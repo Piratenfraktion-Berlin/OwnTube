@@ -3,14 +3,17 @@
 {% block active1 %}
 class="active"
 {% endblock %}
+{% block title %}
+- Channel: {{ channel.name }}
+{% endblock %}
 {% block body %}
 <div class="page-header">
-<h1>pltzchn.de <small>OwnTube</small></h1>
+<h1>Channel: {{ channel.name }}</h1>
 </div>
 <div class="row">
 <div class="span8">
-{% if latest_videos_list %}
-    {% for video in latest_videos_list %}
+{% if videos_list %}
+    {% for video in videos_list %}
     <div class="row">
     <div class="span6 well">
 	{% if video.kind != 1 %}
@@ -32,14 +35,14 @@ class="active"
     <p>No videos are available.</p>
 {% endif %}
 <ul class="pager">
-{% if latest_videos_list.has_previous %}
+{% if videos_list.has_previous %}
   <li class="previous">
-      <a href="?page={{ latest_videos_list.previous_page_number }}">&larr; &Auml;lter</a>
+      <a href="?page={{ videos_list.previous_page_number }}">&larr; &Auml;lter</a>
   </li>
 {% endif %}
-{% if latest_videos_list.has_next %}
+{% if videos_list.has_next %}
   <li class="next">
-      <a href="?page={{ latest_videos_list.next_page_number }}">Neuer &rarr;</a>
+      <a href="?page={{ videos_list.next_page_number }}">Neuer &rarr;</a>
     </li>
 {% endif %}
 </ul>
@@ -48,18 +51,10 @@ class="active"
 <div class=well>
 <ul class="nav nav-list">
   <li class="nav-header">
-    Channels
-  </li>
-  {% for channel in channel_list %}
-    <li>
-       <a href="/videos/channel/{{ channel.slug }}/">{{ channel.name }}</a>
-    </li>
-  {% endfor %}
-  <li class="nav-header">
     Original Material
   </li>
   <li>
-    <a href="/feeds/latest/torrent/">Torrents-Feed</a>
+    <a href="/feeds/latest/torrent/"">Torrents-Feed</a>
   </li>
   <li class="nav-header">
     Video-Podcast
