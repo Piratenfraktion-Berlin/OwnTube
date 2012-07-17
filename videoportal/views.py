@@ -196,7 +196,7 @@ def encodingdone(request):
                 video.webmSize = resultFirst['size']
                 resultItem = results[settings.TRANSLOAD_THUMB_ENCODE]
                 resultFirst = resultItem[0]
-                video.originalFile = ""
+                video.videoThumbURL = resultFirst['url']
             elif (video.kind == 1):
                 results = data['results']
                 resultItem = results[settings.TRANSLOAD_MP3_ENCODE]
