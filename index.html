@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Owntube : OwnTube is your personal video portal based on Django" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Owntube</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/Piratenfraktion-Berlin/OwnTube">View on GitHub</a>
+
+          <h1 id="project_title">Owntube</h1>
+          <h2 id="project_tagline">OwnTube is your personal video portal based on Django</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/Piratenfraktion-Berlin/OwnTube/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/Piratenfraktion-Berlin/OwnTube/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>OwnTube</h1>
+
+<p>OwnTube is your personal video portal based on Django. It serves your files via projekktor and audio.js, servers original files using Bittorrent and gives you feeds for everything. You can use Miro to get new casts automatically.</p>
+
+<h2>Features</h2>
+
+<ul>
+<li>Encode Videos using ffmpeg or transloadit.com</li>
+<li>Uses Bittorrent and Transmission to distribute original files (Using original Bittorrent python libs and transmissionrpc)</li>
+<li>Task Managment using djangotasks</li>
+<li>Uses Projekktor or audio.js to show videos in a modern way</li>
+<li>Upload files using AJAX</li>
+<li>Schedule live streaming events with the livestream app</li>
+<li>Static pages app for, well, static pages</li>
+</ul><h2>Status</h2>
+
+<p>The status could be desciped as early beta. It is feature complete but not yet tested in a real world scenario and the code isn't that elegant as it could be. The first Beta instance can be found <a href="http://owntube.piratenfraktion-berlin.de">here</a></p>
+
+<h2>Requierments</h2>
+
+<p>I would recommend to use virtualenv to make a runtime enviroment for the django site package. Also you would need a settings.py (TODO: Make a generator for this) and you schuld install all dependencies as in dependencies.txt most of them should be available in pip. Also you need to install the transloadit Python "API" which you can find <a href="https://github.com/joestump/python-transloadit">here</a></p>
+
+<h2>Support</h2>
+
+<p>Not available but if you have any issues use the issue tracker of github or contact <a href="mailto:pbrechler@piratenfraktion-berlin.de">pbrechler@piratenfraktion-berlin.de</a></p>
+
+<h2>Fork?</h2>
+
+<p>Yes, please!</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Owntube maintained by <a href="https://github.com/Piratenfraktion-Berlin">Piratenfraktion-Berlin</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
