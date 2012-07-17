@@ -34,7 +34,7 @@ from sys import argv
 def list(request):
     ''' This view is the front page of OwnTube. It just gets the first 15 available video and
     forwards them to the template. We use Django's Paginator to have pagination '''
-    latest_videos_list = Video.objects.filter(encodingDone=True).order_by('-date')
+    latest_videos_list = Video.objects.filter(encodingDone=True).order_by('-date','-modified')
     paginator = Paginator(latest_videos_list,15)
     
     page = request.GET.get('page')
@@ -197,8 +197,6 @@ def encodingdone(request):
                 resultItem = results[settings.TRANSLOAD_THUMB_ENCODE]
                 resultFirst = resultItem[0]
                 video.videoThumbURL = resultFirst['url']
-                os.remove(video.originalFile.path)
-                video.originalFile = ""
             elif (video.kind == 1):
                 results = data['results']
                 resultItem = results[settings.TRANSLOAD_MP3_ENCODE]
@@ -211,8 +209,6 @@ def encodingdone(request):
                 resultFirst = resultItem[0]
                 video.oggURL = resultFirst['url']
                 video.oggSize = resultFirst['size']
-                os.remove(video.originalFile.path)
-                video.originalFile = ""
             elif (video.kind == 2):
                 results = data['results']
                 resultItem = results[settings.TRANSLOAD_MP4_ENCODE]
@@ -236,8 +232,6 @@ def encodingdone(request):
                 resultItem = results[settings.TRANSLOAD_THUMB_ENCODE]
                 resultFirst = resultItem[0]
                 video.videoThumbURL = resultFirst['url']
-                os.remove(video.originalFile.path)
-                video.originalFile = ""
             video.encodingDone = True
             video.save()
         except Video.DoesNotExist:
