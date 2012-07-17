@@ -10,7 +10,7 @@ from django.db.models import Q
 from django.views.generic.list_detail import object_list
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from videoportal.models import Video, Comment
+from videoportal.models import Video, Comment, Channel
 from videoportal.forms import VideoForm, CommentForm
 from transloadit.client import Client
 
@@ -36,6 +36,7 @@ def list(request):
     forwards them to the template. We use Django's Paginator to have pagination '''
     latest_videos_list = Video.objects.filter(encodingDone=True).order_by('-date','-modified')
     paginator = Paginator(latest_videos_list,15)
+    channel_list = Channel.objects.all()
     
     page = request.GET.get('page')
     try:
@@ -46,9 +47,26 @@ def list(request):
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
         videos = paginator.page(paginator.num_pages)
-    return render_to_response('videos/index.html', {'latest_videos_list': videos},
+    return render_to_response('videos/index.html', {'latest_videos_list': videos, 'channel_list': channel_list},
                             context_instance=RequestContext(request))
 
+def channel_list(request,slug):
+    ''' This view is the view for the channels video list it works almost like the index view'''
+    channel = get_object_or_404(Channel, slug=slug)
+    videos_list = Video.objects.filter(encodingDone=True,channel__slug=slug).order_by('-date','-modified')
+    paginator = Paginator(videos_list,15)
+
+    page = request.GET.get('page')
+    try:
+        videos = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        videos = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        videos = paginator.page(paginator.num_pages)
+    return render_to_response('videos/channel.html', {'videos_list': videos, 'channel': channel},
+                            context_instance=RequestContext(request))
 
 def detail(request, slug):
     ''' Handles the detail view of a video (the player so to say) and handles the comments (this should become nicer with AJAX and stuff)'''
@@ -156,6 +174,8 @@ def submit(request):
                         djangotasks.register_task(cmodel.create_bittorrent, "Create Bittorrent file for video and serve it")
                         torrent_task = djangotasks.task_for_object(cmodel.create_bittorrent)
                         djangotasks.run_task(torrent_task)
+                    cmodel.user = request.user
+                    cmodel.save()
                     return redirect(list)
     
             return render_to_response('videos/submit.html',

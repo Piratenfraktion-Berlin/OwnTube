@@ -1,5 +1,6 @@
 from django.db import models
 from django.template.defaultfilters import slugify
+from django.contrib.auth.models import User
 
 from autoslug import AutoSlugField
 from taggit.managers import TaggableManager
@@ -43,6 +44,8 @@ class Video(models.Model):
     slug = AutoSlugField(populate_from='title',unique=True)
     date = models.DateField("Datum")
     description = models.TextField(u"Beschreibung")
+    user = models.ForeignKey(User, blank=True, null=True)
+    channel = models.ForeignKey('videoportal.Channel',blank=True,null=True)
     protocolURL = models.URLField("Link",blank=True,verify_exists=False)
     kind = models.IntegerField("Art",max_length=1, choices=KIND_CHOICES)
     torrentURL = models.URLField("Torrent-URL",blank=True,verify_exists=False)
@@ -193,6 +196,16 @@ class Comment(models.Model):
     
     def __unicode__(self):
         return self.comment
+
+class Channel(models.Model):
+    ''' The model for our channels, all channels can hold videos but videos can only be part of one channel'''
+    name = models.CharField(u"Name",max_length=30)
+    slug = AutoSlugField(populate_from='name',unique=True)
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+
+    def __unicode__(self):
+        return self.name
     
 def getLength(filename):
     ''' Just a little helper to get the duration (in seconds) from a video file using ffmpeg '''
