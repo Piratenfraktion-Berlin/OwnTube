@@ -38,9 +38,9 @@
   <dd>{{ video.date }}</dd>
   <dt>Beschreibung<dt>
   <dd>{{ video.description }}</dd>
-  {% if video.protocolURL %}
+  {% if video.linkURL %}
   <dt>Protokoll:</dt>
-  <dd><a href="{{ video.protocolURL }}" target="_Blank">{{ video.protocolURL }}</a></dd>
+  <dd><a href="{{ video.linkURL }}" target="_Blank">{{ video.linkURL }}</a></dd>
   {% endif %}
   {% if video.duration %}
   <dt>Dauer:</dt>
