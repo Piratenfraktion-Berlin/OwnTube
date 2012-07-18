@@ -13,7 +13,8 @@
 	<link rel="alternate" type="application/rss+xml" title="Latest Audio Files (MP3)" href="/feeds/latest/mp3/" />
 	<link rel="alternate" type="application/rss+xml" title="Latest Audio Files (OGG)" href="/feeds/latest/ogg/" />
 	<link rel="alternate" type="application/rss+xml" title="Upcoming Events" href="/feeds/stream/upcoming/" />
-
+    {% block rss %}
+    {% endblock %}
     <!-- Le styles -->
     <link href="{{ STATIC_URL }}/bootstrap/css/bootstrap.css" rel="stylesheet">
     <style>

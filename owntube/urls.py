@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-from videoportal.feeds import LatestMP4Videos, LatestWEBMVideos, LatestMP3Audio, LatestOGGAudio, TorrentFeed
+from videoportal.feeds import *
 from livestream.feeds import UpcomingEvents
 from django.conf import settings
 
@@ -29,7 +29,11 @@ urlpatterns = patterns('',
     url(r'^feeds/latest/ogg', LatestOGGAudio()),
     url(r'^feeds/stream/upcoming', UpcomingEvents()),
     url(r'^feeds/latest/torrent', TorrentFeed()),
-
+    url(r'^feeds/(?P<channel_slug>[-\w]+)/mp4/$', ChannelFeedMP4()),
+    url(r'^feeds/(?P<channel_slug>[-\w]+)/webm/$', ChannelFeedWEBM()),
+    url(r'^feeds/(?P<channel_slug>[-\w]+)/ogg/$', ChannelFeedOGG()),
+    url(r'^feeds/(?P<channel_slug>[-\w]+)/mp3/$', ChannelFeedMP3()),
+    url(r'^feeds/(?P<channel_slug>[-\w]+)/torrent/$', ChannelFeedTorrent()),
     url(r'^admin/', include(admin.site.urls)),
 )
 
