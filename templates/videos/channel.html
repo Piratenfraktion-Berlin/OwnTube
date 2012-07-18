@@ -6,6 +6,13 @@ class="active"
 {% block title %}
 - Channel: {{ channel.name }}
 {% endblock %}
+{% block rss %}
+<link rel="alternate" type="application/rss+xml" title="Channel Original Feed (Torrents)" href="/feeds/{{ channel.slug }}/torrent/" />
+<link rel="alternate" type="application/rss+xml" title="Channel Video Feed (MP4)" href="/feeds/{{ channel.slug }}/mp4/" />
+<link rel="alternate" type="application/rss+xml" title="Channel Video Feed (WEBM)" href="/feeds/{{ channel.slug }}/webm/" />
+<link rel="alternate" type="application/rss+xml" title="Channel Audio Feed (MP3)" href="/feeds/{{ channel.slug }}/mp3/" />
+<link rel="alternate" type="application/rss+xml" title="Channel Audio Feed (OGG)" href="/feeds/{{ channel.slug }}/ogg/" />
+{% endblock %}
 {% block body %}
 <div class="page-header">
 <h1>Channel: {{ channel.name }}</h1>
@@ -57,29 +64,25 @@ class="active"
     Original Material
   </li>
   <li>
-    <a href="/feeds/latest/torrent/"">Torrents-Feed</a>
+    <a href="/feeds/{{ channel.slug }}/torrent/"">Torrents-Feed</a>
   </li>
   <li class="nav-header">
     Video-Podcast
   </li>
   <li>
-    <a href="/feeds/latest/mp4/">MP4-Format</a>
+    <a href="/feeds/{{ channel.slug }}/mp4/">MP4-Format</a>
   </li>
   <li>
-    <a href="/feeds/latest/webm/">WEBM-Format</a>
+    <a href="/feeds/{{ channel.slug }}/webm/">WEBM-Format</a>
   </li>
   <li class="nav-header">
     Audio-Podcast
   </li>
   <li>
-    <a href="/feeds/latest/mp3/">MP3-Format</a>
+    <a href="/feeds/{{ channel.slug }}/mp3/">MP3-Format</a>
   </li>
   <li>
-    <a href="/feeds/latest/ogg/">OGG-Format</a>
-  </li>
-  <li class="divider"></li>
-  <li>
-  	<a href="mailto:pbrechler@mac.com"><i class="icon-bullhorn"></i> Kontakt</a>
+    <a href="/feeds/{{ channel.slug }}/ogg/">OGG-Format</a>
   </li>
 </ul>
 </div>

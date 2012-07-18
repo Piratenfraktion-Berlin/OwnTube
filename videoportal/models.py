@@ -207,6 +207,9 @@ class Channel(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return "/videos/channel/%s/" % self.slug
     
 def getLength(filename):
     ''' Just a little helper to get the duration (in seconds) from a video file using ffmpeg '''
