@@ -9,6 +9,9 @@ class="active"
 {% block body %}
 <div class="page-header">
 <h1>Channel: {{ channel.name }}</h1>
+{% if channel.description %}
+<p>{{ channel.description }}</p>
+{% endif %}
 </div>
 <div class="row">
 <div class="span8">

@@ -46,7 +46,7 @@ class Video(models.Model):
     description = models.TextField(u"Beschreibung")
     user = models.ForeignKey(User, blank=True, null=True)
     channel = models.ForeignKey('videoportal.Channel',blank=True,null=True)
-    protocolURL = models.URLField("Link",blank=True,verify_exists=False)
+    linkURL = models.URLField("Link",blank=True,verify_exists=False)
     kind = models.IntegerField("Art",max_length=1, choices=KIND_CHOICES)
     torrentURL = models.URLField("Torrent-URL",blank=True,verify_exists=False)
     mp4URL = models.URLField("MP4-URL",blank=True,verify_exists=False)
@@ -201,6 +201,7 @@ class Channel(models.Model):
     ''' The model for our channels, all channels can hold videos but videos can only be part of one channel'''
     name = models.CharField(u"Name",max_length=30)
     slug = AutoSlugField(populate_from='name',unique=True)
+    description = models.TextField(u"Beschreibung", max_length=1000, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
