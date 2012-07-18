@@ -55,7 +55,7 @@ def channel_list(request,slug):
     channel = get_object_or_404(Channel, slug=slug)
     videos_list = Video.objects.filter(encodingDone=True,channel__slug=slug).order_by('-date','-modified')
     paginator = Paginator(videos_list,15)
-
+    channel_list = Channel.objects.all()
     page = request.GET.get('page')
     try:
         videos = paginator.page(page)
@@ -65,7 +65,7 @@ def channel_list(request,slug):
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
         videos = paginator.page(paginator.num_pages)
-    return render_to_response('videos/channel.html', {'videos_list': videos, 'channel': channel},
+    return render_to_response('videos/channel.html', {'videos_list': videos, 'channel': channel, 'channel_list': channel_list},
                             context_instance=RequestContext(request))
 
 def detail(request, slug):

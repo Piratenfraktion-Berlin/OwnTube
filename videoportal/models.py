@@ -204,7 +204,7 @@ class Channel(models.Model):
     description = models.TextField(u"Beschreibung", max_length=1000, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
-
+    featured = models.BooleanField()
     def __unicode__(self):
         return self.name
 

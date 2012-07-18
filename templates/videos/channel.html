@@ -22,6 +22,31 @@ class="active"
 </div>
 <div class="row">
 <div class="span8">
+<ul class="nav nav-tabs">
+  <li>
+    <a href="/">Neuste Videos</a>
+  </li>
+  {% for aChannel in channel_list %}
+  {% if aChannel.featured %}
+      {% if channel.slug == aChannel.slug %}
+          <li class="active"><a href="/videos/channel/{{ aChannel.slug }}/">{{ aChannel.name }}</a></li>
+     {% else %}
+          <li><a href="/videos/channel/{{ aChannel.slug }}/">{{ aChannel.name }}</a></li>
+     {% endif %}
+  {% endif %}
+  {% endfor %}
+  <li class="dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+        Alle Channel
+        <b class="caret"></b>
+      </a>
+    <ul class="dropdown-menu">
+         {% for aChannel in channel_list %}
+            <li><a href="/videos/channel/{{ aChannel.slug }}/">{{ aChannel.name }}</a></li>
+         {% endfor %}
+    </ul>
+  </li>
+</ul>
 {% if videos_list %}
     {% for video in videos_list %}
     <div class="row">

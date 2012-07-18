@@ -9,6 +9,27 @@ class="active"
 </div>
 <div class="row">
 <div class="span8">
+<ul class="nav nav-tabs">
+  <li class="active">
+    <a href="/">Neuste Videos</a>
+  </li>
+  {% for channel in channel_list %}
+  {% if channel.featured %}
+  <li><a href="/videos/channel/{{ channel.slug }}/">{{ channel.name }}</a></li>
+  {% endif %}
+  {% endfor %}
+  <li class="dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+        Alle Channel
+        <b class="caret"></b>
+      </a>
+    <ul class="dropdown-menu">
+      {% for channel in channel_list %}
+        <li><a href="/videos/channel/{{ channel.slug }}/">{{ channel.name }}</a></li>
+     {% endfor %}
+    </ul>
+  </li>
+</ul>
 {% if latest_videos_list %}
     {% for video in latest_videos_list %}
     <div class="row">
@@ -47,14 +68,6 @@ class="active"
 <div class="span4">
 <div class=well>
 <ul class="nav nav-list">
-  <li class="nav-header">
-    Channels
-  </li>
-  {% for channel in channel_list %}
-    <li>
-       <a href="/videos/channel/{{ channel.slug }}/">{{ channel.name }}</a>
-    </li>
-  {% endfor %}
   <li class="nav-header">
     Original Material
   </li>
