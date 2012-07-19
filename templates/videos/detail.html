@@ -11,9 +11,8 @@
 <h1>{{ video.title }}</h1>
 <div class="row">
 <div class="span8">
-<div class="row">
   {% if video.mp4URL or video.webmURL %}
-  <div class=row>
+  <div class="row">
   <div class="span8">
   <video id="player_a" class="projekktor" poster="{{ video.videoThumbURL }}" title="{{ video.title }}" width="640" height="360" controls>
     {% if video.webmURL %}<source src="{{ video.webmURL }}" type="video/webm" />{% endif %}
@@ -30,7 +29,6 @@
   </div>
   </div>
   {% endif %}
-  </div>
   <div class="row">
   <div class="span8">
   <h2>Kommentare</h2>
@@ -134,10 +132,10 @@
     
                var player = projekktor('.projekktor', {
 	                /* path to the MP4 Flash-player fallback component */
-	                playerFlashMP4:		'http://owntube.pltzchn.de/static/projekktor/jarisplayer.swf',
+	                playerFlashMP4:		'{{ STATIC_URL }}/static/projekktor/jarisplayer.swf',
 	        
 	                /* path to the MP3 Flash-player fallback component */
-	                playerFlashMP3:		'http://owntube.pltzchn.de/static/projekktor/jarisplayer.swf',  
+	                playerFlashMP3:		'{{ STATIC_URL }}/static/projekktor/jarisplayer.swf',  
                });
                
                player.addListener('time', timeListener);
