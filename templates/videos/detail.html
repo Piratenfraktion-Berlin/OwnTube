@@ -11,6 +11,7 @@
 <h1>{{ video.title }}</h1>
 <div class="row">
 <div class="span8">
+<div class="row">
   {% if video.mp4URL or video.webmURL %}
   <div class=row>
   <div class="span8">
@@ -30,41 +31,7 @@
   </div>
   {% endif %}
   </div>
-  <div class="span4">
-  <h2>Meta</h2>
-  <div class="well">
-  <dl>
-  <dt>Datum</dt>
-  <dd>{{ video.date }}</dd>
-  <dt>Beschreibung<dt>
-  <dd>{{ video.description }}</dd>
-  {% if video.linkURL %}
-  <dt>Protokoll:</dt>
-  <dd><a href="{{ video.linkURL }}" target="_Blank">{{ video.linkURL }}</a></dd>
-  {% endif %}
-  {% if video.duration %}
-  <dt>Dauer:</dt>
-  <dd>{{ video.duration|secondstohms }}</dd>
-  {% endif %}
-  {% if video.torrentURL %}
-  <dt>Torrent:</dt>
-  <dd><a href="{{ video.torrentURL }}">Download Original</a></dd>
-  {% endif %}
-  <dt>Download:</dt>
-  {% if video.mp4URL %}<dd><a href="{{ video.mp4URL }}">Download MP4 Video</a></dd>{% endif %}
-  {% if video.webmURL %}<dd><a href="{{ video.webmURL }}">Download WEBM Video</a></dd>{% endif %}
-  {% if video.mp3URL %}<dd><a href="{{ video.mp3URL }}">Download MP3 Audio</a></dd>{% endif %}
-  {% if video.oggURL %}<dd><a href="{{ video.oggURL }}">Download OGG Audio</a></dd>{% endif %}
-  </div>
-  <h2>Tags</h2>
-  <div class="well">
-  <ul>
-        {% for tag in video.tags.all %}
-            <li><a href="/tags/{{ tag.name }}/">{{ tag.name }}</a></li>
-        {% endfor %}
-  </ul>
-  </div>
-  </div>
+  <div class="row">
   <div class="span8">
   <h2>Kommentare</h2>
   {% if comments %}
@@ -114,6 +81,47 @@
 <input type="submit" class="btn btn-primary" value="Senden" />
 </div>
 </form>
+  </div>
+  </div>
+  </div>
+  <div class="span4">
+  <h2>Meta</h2>
+  <div class="well">
+  <dl>
+  <dt>Datum</dt>
+  <dd>{{ video.date }}</dd>
+  <dt>Beschreibung<dt>
+  <dd>{{ video.description }}</dd>
+  {% if video.channel %}
+  <dt>Channel</dt>
+  <dd><a href="/videos/channel/{{ video.channel.slug }}/">{{ video.channel.name }}</a>
+  {% endif %}
+  {% if video.linkURL %}
+  <dt>Protokoll:</dt>
+  <dd><a href="{{ video.linkURL }}" target="_Blank">{{ video.linkURL }}</a></dd>
+  {% endif %}
+  {% if video.duration %}
+  <dt>Dauer:</dt>
+  <dd>{{ video.duration|secondstohms }}</dd>
+  {% endif %}
+  {% if video.torrentURL %}
+  <dt>Torrent:</dt>
+  <dd><a href="{{ video.torrentURL }}">Download Original</a></dd>
+  {% endif %}
+  <dt>Download:</dt>
+  {% if video.mp4URL %}<dd><a href="{{ video.mp4URL }}">Download MP4 Video</a></dd>{% endif %}
+  {% if video.webmURL %}<dd><a href="{{ video.webmURL }}">Download WEBM Video</a></dd>{% endif %}
+  {% if video.mp3URL %}<dd><a href="{{ video.mp3URL }}">Download MP3 Audio</a></dd>{% endif %}
+  {% if video.oggURL %}<dd><a href="{{ video.oggURL }}">Download OGG Audio</a></dd>{% endif %}
+  </div>
+  <h2>Tags</h2>
+  <div class="well">
+  <ul>
+        {% for tag in video.tags.all %}
+            <li><a href="/tags/{{ tag.name }}/">{{ tag.name }}</a></li>
+        {% endfor %}
+  </ul>
+  </div>
   </div>
 {% endblock %}
 {% block javascript %}
