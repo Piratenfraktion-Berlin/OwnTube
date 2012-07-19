@@ -89,6 +89,13 @@ def detail(request, slug):
         comments = Comment.objects.filter(moderated=True, video=video).order_by('-created')
         return render_to_response('videos/detail.html', {'video': video, 'comment_form': form, 'comments': comments},
                             context_instance=RequestContext(request))
+
+def iframe(request, slug):
+    ''' Returns an iframe for a video so that videos can be shared easily '''                         
+    video = get_object_or_404(Video, slug=slug)
+    return render_to_response('videos/iframe.html', {'video': video}, context_instance=RequestContext(request))
+
+
 def tag(request, tag):
     ''' Gets all videos for a specified tag'''
     videolist = Video.objects.filter(encodingDone=True, tags__name__in=[tag]).order_by('-date')

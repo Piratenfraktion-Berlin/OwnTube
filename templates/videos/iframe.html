@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>OwnTube</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Philip Brechler">
+    <script src="{{ STATIC_URL }}/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}/projekktor/projekktor.min.js"></script>
+    <script src="{{ STATIC_URL }}/audiojs/audio.min.js"></script>
+    <link rel="stylesheet" href="{{ STATIC_URL }}/projekktor/theme/style.css" type="text/css" media="screen" />
+
+ </head>
+ <body>
+ {% if video.mp4URL %}
+<video id="player_a" class="projekktor" poster="{{ video.videoThumbURL }}" title="{{ video.title }}" width="640" height="360" controls>
+    {% if video.webmURL %}<source src="{{ video.webmURL }}" type="video/webm" />{% endif %}
+    {% if video.mp4URL %}<source src="{{ video.mp4URL }}" type="video/mp4" />{% endif %}
+</video> 
+  {% else %}
+  <audio source src="{{ video.mp3URL }}" preload="none"/>
+  {% endif %}
+<script type="text/javascript">
+		  {% if video.mp4URL or video.webmURL %}
+         $(document).ready(function() {
+    
+               var player = projekktor('.projekktor', {
+	                /* path to the MP4 Flash-player fallback component */
+	                playerFlashMP4:		'{{ STATIC_URL }}/projekktor/jarisplayer.swf',
+	        
+	                /* path to the MP3 Flash-player fallback component */
+	                playerFlashMP3:		'{{ STATIC_URL }}/projekktor/jarisplayer.swf',  
+               });			  
+         });         
+         {% endif %}
+</script>
+<script>
+  audiojs.events.ready(function() {
+    var as = audiojs.createAll();
+  });
+</script>
+</body>
+</html>
