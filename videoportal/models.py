@@ -92,8 +92,7 @@ class Video(models.Model):
             
             self.mp4URL = settings.ENCODING_VIDEO_BASE_URL + slugify(name) + '.mp4'
             self.webmURL = settings.ENCODING_VIDEO_BASE_URL + slugify(name) + '.webm' 
-            self.thumbURL = settings.ENCODING_VIDEO_BASE_URL + slugify(name) + '.jpg'
-            
+            self.videoThumbURL = settings.ENCODING_VIDEO_BASE_URL + slugify(name) + '.jpg'
             outcode = subprocess.Popen(cl_mp4, shell=True)
             
             while outcode.poll() == None:
@@ -104,7 +103,9 @@ class Video(models.Model):
                 self.duration = getLength(outfile_mp4)
             else:
                 raise StandardError('Encoding MP4 Failed')
-                
+            
+            print(cl_mp4)
+            print(cl_webm)    
             outcode = subprocess.Popen(cl_webm, shell=True)
             
             while outcode.poll() == None:

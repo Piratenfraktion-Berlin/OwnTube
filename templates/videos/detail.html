@@ -132,10 +132,11 @@
     
                var player = projekktor('.projekktor', {
 	                /* path to the MP4 Flash-player fallback component */
-	                playerFlashMP4:		'{{ STATIC_URL }}/static/projekktor/jarisplayer.swf',
+	                playerFlashMP4:		'{{ STATIC_URL }}projekktor/jarisplayer.swf',
 	        
 	                /* path to the MP3 Flash-player fallback component */
-	                playerFlashMP3:		'{{ STATIC_URL }}/static/projekktor/jarisplayer.swf',  
+	                playerFlashMP3:		'{{ STATIC_URL }}projekktor/jarisplayer.swf',
+                        streamType: 'pseudo',
                });
                
                player.addListener('time', timeListener);
