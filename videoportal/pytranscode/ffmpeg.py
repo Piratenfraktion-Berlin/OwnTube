@@ -85,6 +85,7 @@ class video_settings:
             'passn': '-pass',
             'format': '-f',
             'deinterlace': '-deinterlace',
+            'vf': '-vf',
         }
         
         self.advanced_options = {

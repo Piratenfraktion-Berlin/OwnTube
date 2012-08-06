@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load custom_filters %}
+{% load markup %}
 {% block title %} - {{ video.title }}{% endblock %}
 {% block head %}
 <script type="text/javascript" src="{{ STATIC_URL }}/projekktor/projekktor.min.js"></script>
@@ -89,15 +90,17 @@
   <dt>Datum</dt>
   <dd>{{ video.date }}</dd>
   <dt>Beschreibung<dt>
-  <dd>{{ video.description }}</dd>
+  <dd><div style="max-height:200px; overflow-y: scroll;">{{ video.description|markdown:"safe" }}</div></dd>
   {% if video.channel %}
   <dt>Channel</dt>
   <dd><a href="/videos/channel/{{ video.channel.slug }}/">{{ video.channel.name }}</a>
   {% endif %}
   {% if video.linkURL %}
-  <dt>Protokoll:</dt>
-  <dd><a href="{{ video.linkURL }}" target="_Blank">{{ video.linkURL }}</a></dd>
+  <dt>Link:</dt>
+  <dd><a href="{{ video.linkURL }}" target="_Blank">{{ video.linkURL|truncatechars:40 }}</a></dd>
   {% endif %}
+  <dt>Einbetten:</dt>
+  <dd><xmp class="iframe-code"><iframe width="640" height="360" src="http://owntube.piratenfraktion-berlin.de/videos/iframe/{{ video.slug }}/" frameborder="0"></iframe></xmp></dd>
   {% if video.duration %}
   <dt>Dauer:</dt>
   <dd>{{ video.duration|secondstohms }}</dd>

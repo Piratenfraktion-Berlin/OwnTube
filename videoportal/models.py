@@ -77,8 +77,10 @@ class Video(models.Model):
         path = self.originalFile.path
         name_array = os.path.basename(self.originalFile.path).partition('.')
         name = slugify(name_array[0])
-        outputdir = settings.ENCODING_OUTPUT_DIR
-        
+        outputdir = settings.ENCODING_OUTPUT_DIR + slugify(name)
+        if not os.path.exists(outputdir):
+            os.makedirs(outputdir)
+        outputdir = outputdir + '/'
         if ((kind == 0) or (kind == 2)):
             logfile = settings.ENCODING_OUTPUT_DIR + 'encoding_mp4_log.txt'
             outfile_mp4 = outputdir + slugify(name) + '.mp4'
@@ -90,9 +92,9 @@ class Video(models.Model):
     
             cl_webm = ffmpeg(path, outfile_webm, logfile, OWNTUBE_WEBM_VIDEO, OWNTUBE_WEBM_AUDIO).build_command_line()
             
-            self.mp4URL = settings.ENCODING_VIDEO_BASE_URL + slugify(name) + '.mp4'
-            self.webmURL = settings.ENCODING_VIDEO_BASE_URL + slugify(name) + '.webm' 
-            self.videoThumbURL = settings.ENCODING_VIDEO_BASE_URL + slugify(name) + '.jpg'
+            self.mp4URL = settings.ENCODING_VIDEO_BASE_URL + slugify(name) + '/' + slugify(name) + '.mp4'
+            self.webmURL = settings.ENCODING_VIDEO_BASE_URL + slugify(name) + '/' + slugify(name) + '.webm' 
+            self.videoThumbURL = settings.ENCODING_VIDEO_BASE_URL + slugify(name) + '/' + slugify(name) + '.jpg'
             outcode = subprocess.Popen(cl_mp4, shell=True)
             
             while outcode.poll() == None:
@@ -138,8 +140,8 @@ class Video(models.Model):
 
             cl_ogg = ffmpeg(path, outfile_ogg, logfile, OWNTUBE_NULL_VIDEO, OWNTUBE_OGG_AUDIO).build_command_line()
             
-            self.mp3URL = settings.ENCODING_VIDEO_BASE_URL + slugify(name) + '.mp3'
-            self.oggURL = settings.ENCODING_VIDEO_BASE_URL + slugify(name) + '.ogg'
+            self.mp3URL = settings.ENCODING_VIDEO_BASE_URL + slugify(name) +  '/' + slugify(name) + '.mp3'
+            self.oggURL = settings.ENCODING_VIDEO_BASE_URL + slugify(name) +  '/' + slugify(name) + '.ogg'
                         
             outcode = subprocess.Popen(cl_mp3, shell=True)
             

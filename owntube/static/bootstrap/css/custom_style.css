@@ -1,0 +1,15 @@
+body {
+
+-webkit-hyphens: auto;
+-moz-hyphens: auto;
+-o-hyphens: auto;
+-ms-hyphens: auto;
+hyphens: auto;
+
+}
+
+.iframe-code {
+    word-wrap: break-word;
+    font-size: 80%;
+    line-height: 90%;
+}

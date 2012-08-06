@@ -96,8 +96,10 @@ OWNTUBE_MP4_VIDEO = {'format':'mp4',
                   'qmin':'3',
                   'qmax':'5',
                   'g':'300',
-                  'size':'480x320',
-                  'bitrate':'700k'}
+                  'bitrate':'700k',
+                  'vf':'"scale=-1:360"',
+}
+
 OWNTUBE_MP4_AUDIO = {'acodec':'libfaac',
                   'rate':'64k'}
 
@@ -108,10 +110,10 @@ OWNTUBE_WEBM_VIDEO = {'format':'webm',
 OWNTUBE_WEBM_AUDIO = {'acodec':'libvorbis',
                   'rate':'128k'}
 
-OWNTUBE_MP3_AUDIO = {'acodec':'libmp3lame',
+OWNTUBE_MP3_AUDIO = {'format':'mp3',
                   'rate':'64k'}
 
-OWNTUBE_OGG_AUDIO = {'acodec':'libvorbis',
+OWNTUBE_OGG_AUDIO = {'format':'ogg',
                   'rate':'64k'}
 
 OWNTUBE_NULL_VIDEO = {}
