@@ -43,6 +43,7 @@ class audio_settings:
             'channels': '-ac',
             'acodec': '-acodec',
             'stream_filter': '-absf',
+            'format': '-f',
         }
         
     def command(self):

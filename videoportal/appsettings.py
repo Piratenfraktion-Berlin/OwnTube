@@ -34,3 +34,8 @@ BITTORRENT_FILES_BASE_URL = 'http://owntube.piratenfraktion-berlin.de/media/torr
 # Host and port Transmission is listining on (probably localhost
 TRANSMISSION_HOST = '127.0.0.1'
 TRANSMISSION_PORT = 9091
+
+# Base-Dir vor Hotfolders
+
+HOTFOLDER_BASE_DIR = '/mnt/iscsi0/hotfolders/'
+HOTFOLDER_MOVE_TO_DIR = '/opt/owntube/owntube/media/raw/'
