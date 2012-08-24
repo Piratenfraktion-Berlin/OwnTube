@@ -33,3 +33,8 @@ Fork?
 -----
 
 Yes, please!
+
+License
+-------
+
+BSD 2-clause (See LICENSE file)
