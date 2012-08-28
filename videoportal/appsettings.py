@@ -37,5 +37,5 @@ TRANSMISSION_PORT = 9091
 
 # Base-Dir vor Hotfolders
 
-HOTFOLDER_BASE_DIR = '/mnt/iscsi0/hotfolders/'
+HOTFOLDER_BASE_DIR = '/mnt/iscsi0/videostore/robotron/'
 HOTFOLDER_MOVE_TO_DIR = '/opt/owntube/owntube/media/raw/'
