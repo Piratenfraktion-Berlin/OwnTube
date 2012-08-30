@@ -1,0 +1,3 @@
+[submodule "djangotasks"]
+	path = djangotasks
+	url = git://github.com/farialima/django-tasks.git
