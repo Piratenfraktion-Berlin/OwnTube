@@ -104,7 +104,7 @@ OWNTUBE_MP4_AUDIO = {'acodec':'libfaac',
                   'rate':'64k'}
 
 OWNTUBE_WEBM_VIDEO = {'format':'webm',
-                  'size':'480x320',
+                  'vf':'"scale=-1:360"',
                   'bitrate':'700k'}
 
 OWNTUBE_WEBM_AUDIO = {'acodec':'libvorbis',

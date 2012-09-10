@@ -213,7 +213,22 @@ class Channel(models.Model):
 
     def get_absolute_url(self):
         return "/videos/channel/%s/" % self.slug
-    
+
+class Hotfolder(models.Model):
+    ''' This is used for hotfolder support. Files in one of these will be added to owntube automagicly using a cron job and a manage task '''
+    activated = models.BooleanField()
+    channel = models.ForeignKey(Channel)
+    folderName = models.CharField(u"Ordnername",max_length=30)
+    defaultName = models.CharField(u"Standard Titel",max_length=30, blank=True)
+    description = models.TextField(u"Standardbeschreibung", max_length=1000, null=True, blank=True)
+    autoPublish = models.BooleanField(u"Automatisch Veroeffentlichen")
+    kind = models.IntegerField("Art",max_length=1, choices=KIND_CHOICES)
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+
+    def __unicode__(self):
+        return self.folderName
+
 def getLength(filename):
     ''' Just a little helper to get the duration (in seconds) from a video file using ffmpeg '''
     process = subprocess.Popen(['ffmpeg',  '-i', filename], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)

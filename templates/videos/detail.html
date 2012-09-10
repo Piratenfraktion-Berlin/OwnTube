@@ -100,7 +100,7 @@
   <dd><a href="{{ video.linkURL }}" target="_Blank">{{ video.linkURL|truncatechars:40 }}</a></dd>
   {% endif %}
   <dt>Einbetten:</dt>
-  <dd><xmp class="iframe-code"><iframe width="640" height="360" src="http://owntube.piratenfraktion-berlin.de/videos/iframe/{{ video.slug }}/" frameborder="0"></iframe></xmp></dd>
+  <dd><input type="text" readonly="readonly" value='<iframe width="640" height="360" src="http://owntube.piratenfraktion-berlin.de/videos/iframe/{{ video.slug }}/" frameborder="0"></iframe>'></dd>
   {% if video.duration %}
   <dt>Dauer:</dt>
   <dd>{{ video.duration|secondstohms }}</dd>
