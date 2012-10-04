@@ -1,6 +1,192 @@
 PROJEKKTOR - simply mighty <video>
 http://www.projekktor.com
 
+
+V1.1.02
+=======
+
+  fixes:
+  * [core] in case of player errors flash detection intervals are now properly cleared
+  * [core] proper namespace prefix set for plugins
+
+  changes:
+  * [core] removed "Invalid or inconsistent quality setup ..." error. In case your quality setup isn´t correct it will now simply be ignored.
+
+
+V1.1.01
+=======
+
+  fixes:
+  * [core] .setPlayhead() crashed IDLE players
+  * [core] cookies sometimes were set to NULL
+  * [core] quality-settings are now properly remembered, applied and promoted.
+  * [core] cuepoints were not properly reset in players with playlists. caused them to fail on replay.
+  * [plugin:controlbar] cuepoint-blips are now properly removed on COMPLETED
+  
+  addition:
+  * {core] config option "keys" => set default keyboard commands as you like
+  
+  
+
+V1.1.00
+=======
+
+ changes:
+ * [core] ".getCssPrefix()" became ".getNS()" (get namespace)
+ * [core] config option 'cssClassPrefix' became 'ns' (namespace)
+
+ fixes:
+ * [core] fixed issues where set cue-points where not properly unlocked in case media was completely pre-cached
+ * [core] error message "no media scheduled" is now properly shown instead of "sorry, your browser can not ..."
+ * [core] .getMediaType() always returned "video/mp4"
+ * [core] prevent promotion of "mousemove" event in case of hovered fading elements
+ * [plugin:controlbar] fixed general fading issues
+ 
+
+V1.0.29
+=======
+
+ fixes:
+ * [core] several performance enhancements (thx Lena)
+ * [plugin:controlbar] on mobile devides controls didn´t fade away if "fade" is enabled
+
+ additions:
+ * [core] hitting "c" if debug is enabled dumps the current config object to console
+ * [core] hitting "p" if debug is enabled dumps the current schedule / playlist object to console
+
+
+V1.0.28
+=======
+
+ fixes:
+ * [core] fixed a critical bug which caused .canPlay() to return "false" in case no platform has been specified.
+
+
+V1.0.27
+=======
+
+ fixes:
+ * [core] multiple "plugin_" configs on player- and item- level are now properly merged
+ * [plugin:controlbar] controlbar no longer fades out on scrubbing while in "static" mode
+ 
+ additions:
+ * [plugin:display] new config option "designMode"
+
+
+
+V1.0.26
+=======
+
+ fixes:
+ * [core] player level config options were not properly inherited to plugins
+ 
+ 
+
+V1.0.25
+=======
+
+ fixes:
+ * [core] .setVolume() method ignored values of type number => fixed
+ * [core] .setPlayhead() method ignored values of type number => fixed
+ * [plugin:controlbar] controlbar DOM is now properly refreshed on volume-chnage in Chrome
+ 
+ additions:
+ * [core] new API method .getPlayerVer()
+ 
+
+
+V1.0.24
+=======
+
+  fixes:
+  * [core] fixed issues while changing the quality of players in IDLE state
+  * [core] percenatge width and hight of the initial player container are now kept after init
+  * [core] X-domain iFrames are now properly detected in Chrome
+  * [core] fixed issues with iframed player on browsers with lack of true html fullscreen mode
+  * [core] fixed Flash detection on Android devices
+  * [core] disabling specific platforms by setting "enable<platform>Platform" to false now works properly
+  * [core] disabling "nive" platform no longer disables Android and iOS native playback
+  * [core] setting "disallowSkip" on player level prevented the player from bein initialized
+  * [plugin:controlbar] fullscreen-button is now properly disabled in case of X-domain issues
+  
+  additions:
+  * [core] entering debug-mode gives an initial feedback to console
+  * [core] HDS streaming support for Android >2
+
+
+
+
+V1.0.23 (!!!)
+=======
+
+  fixes:
+  * [core] fixed stuttering on audio-playback via flash
+
+
+V1.0.22
+=======
+
+  fixes:
+  * [core] fixed scaling issues if controlbar is set to be permanently visible
+
+V1.0.21
+=======
+
+  fixes:
+  * [core] fixed synching issues while toggling fullscreen
+  * [core] fixed iOS issues when HDS and HLS streams are provided in combination
+  * [core] fixed general pseudo-streaming issues while on Flash
+  * [core] fixed general config inheritance issues with theme-packs 
+  
+  additions:
+  * [plugin:controlbar] position- and load- indicators move a little smoother now
+  
+
+V1.0.20
+=======
+  
+  fixes:
+  * [core] IE9 playlist issues
+  * [core] .gePlaylist() and .getItem() properly return an empty array in case of an empty playlist
+  * [core] .getItemCount() now properly returns zero for empty playlists.
+  * [core] playhead position is noe properly restored in case a "streamable" video format is being played and quality/source was changed dynamically
+  * [core] cue points where not applied in case "autoplay" was "true"
+  * [core] fixed cuepoint-callback-flooding if a precision higher 0 is used (floating point)
+  * [core] if config.className is undefined the player no longer gets the class "<cssprefix>null"
+  * [core] improved flexibility on handling iframed players with prepended html content in conjunction with fullscreen
+  * [core] fixed native ogg/audio hickup
+  * [plugin:controlbar] "seek" was triggered twice if the srubber was clicked
+  
+  additions:
+  * [core] .setSize() now respects "%" and "px"
+  
+
+
+V1.0.19
+=======
+
+  fixes:
+  * [core] ficed cuepoint "flooding"
+  * [plugin:display] fixed error handling for non-existent logo-files.
+
+
+V1.0.18
+=======
+
+  fixes:
+  * [core] fixed general Firefox 3.6 issues - volumeslider, flash fallback
+  * [core] fixed minor Android 2.x issues - "stop" once finished
+  * [core] fixed IE9.0.x issue with non-starting native video
+  * [core] fixed IE9.0.x issue with proper pseudo-stream detection
+  * [core] fixed IE8 issue with messed up volume / seek setting
+  * [core] fixed Chrome 12.x issue not firing the timeupdate event while seeking in a paused video
+  * [core] fixed position reset issues with jarisplayer being scrubbed during "pause" state on AUDIO playback
+  * [core] config option "enable<Platform>Platform" is now properly recognized
+  * [core] cover images on audioplayback are no longer marked as "selected" after "play" gets hit in FF 
+  * [plugin:controlbar] improved cuePoint-blip precision
+  * [plugin:controlbar] "showCuePoints" set to false is now properly detected (and default)
+
+
 V1.0.17
 =======
 
@@ -23,6 +209,7 @@ V1.0.17
 
 V1.0.16
 =======
+
  additions:
  * its now possible to send any custom "update" from models to the controller. Will result in a regular event promotion.
  

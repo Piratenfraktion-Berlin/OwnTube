@@ -36,12 +36,12 @@ class="active"
     <div class="span6 well">
 	{% if video.kind != 1 %}
 	{% if video.videoThumbURL %}
-	<img src="{{ video.videoThumbURL }}" width="100px" style="float:left; margin:0 10px 0 0;"/>
+        <a href="/videos/{{ video.slug }}/"><img src="{{ video.videoThumbURL }}" width="100px" style="float:left; margin:0 10px 0 0;"/></a>
 	{% else %}
-	<img src="{{ STATIC_URL }}/default-video.png" width="100px" style="float:left; margin:0 10px 0 0;"/>
+	<a href="/videos/{{ video.slug }}/"><img src="{{ STATIC_URL }}/default-video.png" width="100px" style="float:left; margin:0 10px 0 0;"/></<a>
 	{% endif %}
 	{% else %}
-	<img src="{{ STATIC_URL }}/default-audio.png" width="100px" style="float:left; margin:0 10px 0 0;"/>
+        <a href="/videos/{{ video.slug }}/"><img src="{{ STATIC_URL }}/default-audio.png" width="100px" style="float:left; margin:0 10px 0 0;"/></a>
 	{% endif %}
         <a href="/videos/{{ video.slug }}/"><h4>{{ video.title }}</h4></a>
 	<span><strong>Beschreibung: </strong>{{ video.description|truncatechars:100 }}</span><br/>
@@ -94,7 +94,7 @@ class="active"
   </li>
   <li class="divider"></li>
   <li>
-  	<a href="mailto:pbrechler@mac.com"><i class="icon-bullhorn"></i> Kontakt</a>
+  	<a href="mailto:it@piratenfraktion-berlin.de"><i class="icon-bullhorn"></i> Kontakt</a>
   </li>
 </ul>
 </div>

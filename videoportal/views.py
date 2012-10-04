@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.views.generic.list_detail import object_list
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core import serializers
 
 from videoportal.models import Video, Comment, Channel
 from videoportal.forms import VideoForm, CommentForm
@@ -116,6 +117,20 @@ def search(request):
     return render_to_response('videos/search_results.html',
                           { 'query_string': query_string, 'videos_list': found_entries },
                           context_instance=RequestContext(request))
+
+def search_json(request):
+    ''' The search view for handling the search using Django's "Q"-class (see normlize_query and get_query)'''
+    query_string = ''
+    found_entries = None
+    if ('q' in request.GET) and request.GET['q'].strip():
+        query_string = request.GET['q']
+
+        entry_query = get_query(query_string, ['title', 'description',])
+
+        found_entries = Video.objects.filter(entry_query).order_by('-date')
+
+    data = serializers.serialize('json', found_entries)
+    return HttpResponse(data, content_type = 'application/javascript; charset=utf8')
                             
 @login_required(login_url='/login/')
 def submit(request):

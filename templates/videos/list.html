@@ -14,7 +14,7 @@ class="active"
     <div class="row">
     <div class="span6 well">
         {% if video.kind != 1 %}
-        {% if video.videoThumbURL %}
+	{% if video.videoThumbURL %}
         <img src="{{ video.videoThumbURL }}" width="100px" style="float:left; margin:0 10px 0 0;"/>
         {% else %}
         <img src="{{ STATIC_URL }}/default-video.png" width="100px" style="float:left; margin:0 10px 0 0;"/>

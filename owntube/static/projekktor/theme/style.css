@@ -9,7 +9,7 @@ Author URI: http://www.porkhead.org
 
 .projekktor {
     background-color:#000;
-    font-family: 'Lucida Grande', Trebuchet MS, Arial, Sans-Serif;
+    font-family: 'Lucida Grande', 'Trebuchet MS', Arial, Sans-Serif;
     font-size: 12px;
     font-weight: bold;
     text-align:center;
@@ -18,7 +18,8 @@ Author URI: http://www.porkhead.org
     padding:0;
     margin:0;
     display:block;
-    position: relative; 
+    position: relative;
+    overflow: hidden;    
 }
 
 .projekktor .inactive {
@@ -36,7 +37,8 @@ Author URI: http://www.porkhead.org
     width: 100%;
     height: 100%;
     margin: 0;
-    padding: 0;    
+    padding: 0;
+
 }
 
 .ppstart {
@@ -162,6 +164,10 @@ Author URI: http://www.porkhead.org
 
 
 /* Enter / Exit Fullscreen - right */
+.projekktor.audio .ppfsenter,
+.projekktor.audio .ppfsexit {
+    display: none;
+}
 
 .ppfsenter,
 .ppfsexit  {    
@@ -184,7 +190,7 @@ Author URI: http://www.porkhead.org
     background: url("maccaco.png") no-repeat right -105px transparent;
 }
 .ppfsexit:active {
-    background: url("maccaco.png") no-repeat right -106x transparent;
+    background: url("maccaco.png") no-repeat right -106px transparent;
 }
 
 
@@ -315,6 +321,11 @@ background: url("maccaco.png") no-repeat -91px top transparent;
     padding: 0;
     border-bottom: 1px solid #000;
 }
+
+.audio .ppscrubber {
+    background: url("maccaco-load-static.png") repeat-x left top transparent;
+}
+
 
 
 .ppscrubberdrag {

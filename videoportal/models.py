@@ -118,7 +118,7 @@ class Video(models.Model):
             else:
                 raise StandardError('Encoding WEBM Failed')
     
-            outcode = subprocess.Popen(['ffmpeg -i '+ self.originalFile.path + ' -ss 1.0 -vframes 1 -f image2 ' + outputdir + slugify(name) + '.jpg'],shell = True)
+            outcode = subprocess.Popen(['ffmpeg -i '+ self.originalFile.path + ' -ss 5.0 -vframes 1 -f image2 ' + outputdir + slugify(name) + '.jpg'],shell = True)
             
             while outcode.poll() == None:
                 pass
