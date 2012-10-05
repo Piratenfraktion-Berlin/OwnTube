@@ -131,7 +131,12 @@ def search_json(request):
 
     data = serializers.serialize('json', found_entries)
     return HttpResponse(data, content_type = 'application/javascript; charset=utf8')
-                            
+           
+def tag_json(request, tag):
+    videolist = Video.objects.filter(encodingDone=True, tags__name__in=[tag]).order_by('-date')
+    data = serializers.serialize('json', videolist)
+    return HttpResponse(data, content_type = 'application/javascript; charset=utf8')
+
 @login_required(login_url='/login/')
 def submit(request):
     ''' The view for uploading the videos. Only authenticated users can upload videos!
