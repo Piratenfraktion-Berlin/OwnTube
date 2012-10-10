@@ -114,7 +114,7 @@ class TorrentFeed(Feed):
     item_enclosure_mime_type = "application/x-bittorrent"
 	
     def items(self):
-        return Video.objects.filter(published=True).exclude(torrentURL='').order_by('-created')
+        return Video.objects.filter(published=True, torrentDone=True).exclude(torrentURL='').order_by('-created')
 
     def item_title(self, item):
         return item.title
@@ -285,7 +285,7 @@ class ChannelFeedTorrent(Feed):
     item_enclosure_mime_type = "application/x-bittorrent"
 
     def items(self, obj):
-        return Video.objects.filter(published=True, channel=obj ).exclude(torrentURL='').order_by('-created')
+        return Video.objects.filter(published=True, channel=obj, torrentDone=True ).exclude(torrentURL='').order_by('-created')
 
     def item_title(self, item):
         return item.title

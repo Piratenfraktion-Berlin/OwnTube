@@ -23,7 +23,7 @@ class Command(BaseCommand):
                 if mtime < five_minutes_ago:
                     if file.endswith(".mov") or file.endswith(".mp4") or file.endswith(".avi") or file.endswith(".ogv") or file.endswith(".m4v") or file.endswith(".mp3") or file.endswith(".ogg"):
                         self.stdout.write('Using file %s\n' % file) 
-                        video = Video(title=folder.defaultName,date=datetime.date.today(),description=folder.description,kind=folder.kind,channel=folder.channel)
+                        video = Video(title=folder.defaultName,date=datetime.date.today(),description=folder.description,kind=folder.kind,channel=folder.channel,autoPublish=folder.autoPublish)
                         video.save()
                         shutil.copy(settings.HOTFOLDER_BASE_DIR + folder.folderName + '/' + file, settings.HOTFOLDER_MOVE_TO_DIR)
                         video.originalFile = settings.HOTFOLDER_MOVE_TO_DIR + file

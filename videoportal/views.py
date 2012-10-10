@@ -35,7 +35,7 @@ from sys import argv
 def list(request):
     ''' This view is the front page of OwnTube. It just gets the first 15 available video and
     forwards them to the template. We use Django's Paginator to have pagination '''
-    latest_videos_list = Video.objects.filter(encodingDone=True).order_by('-date','-modified')
+    latest_videos_list = Video.objects.filter(encodingDone=True, published=True).order_by('-date','-modified')
     paginator = Paginator(latest_videos_list,15)
     channel_list = Channel.objects.all()
     
@@ -54,7 +54,7 @@ def list(request):
 def channel_list(request,slug):
     ''' This view is the view for the channels video list it works almost like the index view'''
     channel = get_object_or_404(Channel, slug=slug)
-    videos_list = Video.objects.filter(encodingDone=True,channel__slug=slug).order_by('-date','-modified')
+    videos_list = Video.objects.filter(encodingDone=True, published=True, channel__slug=slug).order_by('-date','-modified')
     paginator = Paginator(videos_list,15)
     channel_list = Channel.objects.all()
     page = request.GET.get('page')
@@ -99,7 +99,7 @@ def iframe(request, slug):
 
 def tag(request, tag):
     ''' Gets all videos for a specified tag'''
-    videolist = Video.objects.filter(encodingDone=True, tags__name__in=[tag]).order_by('-date')
+    videolist = Video.objects.filter(encodingDone=True, published=True, tags__name__in=[tag]).order_by('-date')
     return render_to_response('videos/list.html', {'videos_list': videolist, 'tag':tag},
                             context_instance=RequestContext(request))
                             
@@ -133,7 +133,7 @@ def search_json(request):
     return HttpResponse(data, content_type = 'application/javascript; charset=utf8')
            
 def tag_json(request, tag):
-    videolist = Video.objects.filter(encodingDone=True, tags__name__in=[tag]).order_by('-date')
+    videolist = Video.objects.filter(encodingDone=True, published=True, tags__name__in=[tag]).order_by('-date')
     data = serializers.serialize('json', videolist)
     return HttpResponse(data, content_type = 'application/javascript; charset=utf8')
 
@@ -189,7 +189,7 @@ def submit(request):
                                 }
                             result = client.request(**params)
                             cmodel.assemblyid = result['assembly_id']
-                            cmodel.published = True
+                            cmodel.published = cmodel.autoPublish
                             cmodel.encodingDone = False
                             cmodel.save()
                         else:

@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load custom_filters %}
+{% load taggit_extras %}
 {% block active1 %}
 class="active"
 {% endblock %}
@@ -55,12 +56,12 @@ class="active"
 <ul class="pager">
 {% if latest_videos_list.has_previous %}
   <li class="previous">
-      <a href="?page={{ latest_videos_list.previous_page_number }}">&larr; &Auml;lter</a>
+      <a href="?page={{ latest_videos_list.previous_page_number }}">&larr; Neuer</a>
   </li>
 {% endif %}
 {% if latest_videos_list.has_next %}
   <li class="next">
-      <a href="?page={{ latest_videos_list.next_page_number }}">Neuer &rarr;</a>
+      <a href="?page={{ latest_videos_list.next_page_number }}">&Auml;lter &rarr;</a>
     </li>
 {% endif %}
 </ul>
@@ -97,6 +98,16 @@ class="active"
   	<a href="mailto:it@piratenfraktion-berlin.de"><i class="icon-bullhorn"></i> Kontakt</a>
   </li>
 </ul>
+</div>
+</div>
+<div class="span4">
+<div class="well">
+{% get_tagcloud as tags for 'videoportal.Video' %}
+<ul>
+{% for tag in tags %}
+<a href="/tags/{{tag.name}}" class="tag-weight-{{tag.weight|floatformat:0}}">{{tag.name}}</a>
+{% endfor %}
+<ul>
 </div>
 </div>
 </div>

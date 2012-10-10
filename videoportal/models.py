@@ -59,8 +59,10 @@ class Video(models.Model):
     oggSize = models.BigIntegerField("OGG Size in Bytes",null=True,blank=True)
     videoThumbURL = models.URLField("Thumb-URL",blank=True,verify_exists=False)
     duration = models.DecimalField(null=True, max_digits=10, decimal_places=2,blank=True)
+    autoPublish = models.BooleanField(default=True)
     published = models.BooleanField()
     encodingDone = models.BooleanField()
+    torrentDone = models.BooleanField()
     assemblyid = models.CharField("Transloadit Result",max_length=100,blank=True)
     tags = TaggableManager("Tags")
     created = models.DateTimeField(auto_now_add=True)
@@ -168,7 +170,7 @@ class Video(models.Model):
         if settings.USE_BITTORRENT:
             self.torrentURL = settings.BITTORRENT_FILES_BASE_URL + self.slug + '.torrent'
             
-        self.published = True
+        self.published = self.autoPublish
         self.save()
         
     def create_bittorrent(self):
@@ -177,7 +179,8 @@ class Video(models.Model):
         make_meta_file(str(self.originalFile.path), settings.BITTORRENT_TRACKER_ANNOUNCE_URL, flag = flag, progress_percent=0, piece_len_exp = 18, target = settings.BITTORRENT_FILES_DIR + self.slug + '.torrent')
         self.torrentURL = settings.BITTORRENT_FILES_BASE_URL + self.slug + '.torrent'
         shutil.copy(str(self.originalFile.path), settings.BITTORRENT_DOWNLOADS_DIR)
-        self.published = True
+        self.torrentDone = True
+        self.published = self.autoPublish
         try:
             tc = transmissionrpc.Client(settings.TRANSMISSION_HOST, port=settings.TRANSMISSION_PORT)
             tc.add_uri(self.torrentURL, download_dir=settings.BITTORRENT_DOWNLOADS_DIR)
