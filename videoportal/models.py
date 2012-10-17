@@ -86,12 +86,12 @@ class Video(models.Model):
             os.makedirs(outputdir)
         outputdir = outputdir + '/'
         if ((kind == 0) or (kind == 2)):
-            logfile = settings.ENCODING_OUTPUT_DIR + slugify(name) + 'encoding_mp4_log.txt'
+            logfile = outputdir + encoding_mp4_log.txt'
             outfile_mp4 = outputdir + slugify(name) + '.mp4'
             # Create the command line
             cl_mp4 = ffmpeg(path, outfile_mp4, logfile, OWNTUBE_MP4_VIDEO, OWNTUBE_MP4_AUDIO).build_command_line()
             
-            logfile = settings.ENCODING_OUTPUT_DIR + slugify(name) + 'encoding_webm_log.txt'
+            logfile = outputdir + encoding_webm_log.txt'
             outfile_webm = outputdir + slugify(name) + '.webm'
     
             cl_webm = ffmpeg(path, outfile_webm, logfile, OWNTUBE_WEBM_VIDEO, OWNTUBE_WEBM_AUDIO).build_command_line()
@@ -134,12 +134,12 @@ class Video(models.Model):
             
             
         if((kind == 1) or (kind == 2)):
-            logfile = settings.ENCODING_OUTPUT_DIR + slugify(name) + 'encoding_mp3_log.txt'
+            logfile = outputdir + encoding_mp3_log.txt'
             outfile_mp3 = outputdir + slugify(name) + '.mp3'
             # Create the command line
             cl_mp3 = ffmpeg(path, outfile_mp3, logfile, OWNTUBE_NULL_VIDEO , OWNTUBE_MP3_AUDIO).build_command_line()
             
-            logfile = settings.ENCODING_OUTPUT_DIR + slugify(name) + 'encoding_ogg_log.txt'
+            logfile = outputdir + 'encoding_ogg_log.txt'
             outfile_ogg = outputdir + slugify(name) + '.ogg'
 
             cl_ogg = ffmpeg(path, outfile_ogg, logfile, OWNTUBE_NULL_VIDEO, OWNTUBE_OGG_AUDIO).build_command_line()
