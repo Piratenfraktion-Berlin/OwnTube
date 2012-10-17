@@ -67,11 +67,13 @@ class Video(models.Model):
     tags = TaggableManager("Tags")
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
-    originalFile = models.FileField("Datei",upload_to="raw/%Y/%m/%d/",blank=True)
+    originalFile = models.FileField("Datei",upload_to="raw/%Y/%m/%d/",blank=True, max_length=2048)
     def __unicode__(self):
         return self.title
     def get_absolute_url(self):
         return "/videos/%s/" % self.slug
+    def getClassName(self):
+        return self.__class__.__name__
 
     def encode_media(self):
         ''' This is used to tell ffmpeg what to do '''
@@ -181,13 +183,12 @@ class Video(models.Model):
         shutil.copy(str(self.originalFile.path), settings.BITTORRENT_DOWNLOADS_DIR)
         self.torrentDone = True
         self.published = self.autoPublish
+        self.save()
         try:
             tc = transmissionrpc.Client(settings.TRANSMISSION_HOST, port=settings.TRANSMISSION_PORT)
             tc.add_uri(self.torrentURL, download_dir=settings.BITTORRENT_DOWNLOADS_DIR)
         except Exception, e:
             print "Error:", e
-            
-        self.save()
         
 class Comment(models.Model):
     ''' The model for our comments, please note that (right now) OwnTube comments are moderated only'''
@@ -231,6 +232,22 @@ class Hotfolder(models.Model):
 
     def __unicode__(self):
         return self.folderName
+
+class Collection(models.Model):
+    title = models.CharField(u"Titel", max_length=40)
+    description = models.TextField(u"Beschreibung", max_length=1000)
+    slug = AutoSlugField(populate_from='title',unique=True)
+    date = models.DateField("Datum",null=True)
+    videos = models.ManyToManyField('videoportal.Video')
+    channel = models.ForeignKey('videoportal.Channel',blank=True,null=True)
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+    def __unicode__(self):
+        return self.title
+    def getClassName(self):
+        return self.__class__.__name__
+    def get_absolute_url(self):
+        return "/collection/%s/" % self.slug
 
 def getLength(filename):
     ''' Just a little helper to get the duration (in seconds) from a video file using ffmpeg '''

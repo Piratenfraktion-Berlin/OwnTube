@@ -35,20 +35,27 @@ class="active"
     {% for video in latest_videos_list %}
     <div class="row">
     <div class="span6 well">
-	{% if video.kind != 1 %}
-	{% if video.videoThumbURL %}
-        <a href="/videos/{{ video.slug }}/"><img src="{{ video.videoThumbURL }}" width="100px" style="float:left; margin:0 10px 0 0;"/></a>
-	{% else %}
-	<a href="/videos/{{ video.slug }}/"><img src="{{ STATIC_URL }}/default-video.png" width="100px" style="float:left; margin:0 10px 0 0;"/></<a>
-	{% endif %}
-	{% else %}
-        <a href="/videos/{{ video.slug }}/"><img src="{{ STATIC_URL }}/default-audio.png" width="100px" style="float:left; margin:0 10px 0 0;"/></a>
-	{% endif %}
-        <a href="/videos/{{ video.slug }}/"><h4>{{ video.title }}</h4></a>
-	<span><strong>Beschreibung: </strong>{{ video.description|truncatechars:100 }}</span><br/>
-        <span><strong>Datum: </strong>{{ video.date }}{% if video.duration %} &bull; <strong>Länge: </strong>{{ video.duration|secondstohms }}{% endif %}</span>
+        {% if video.getClassName == 'Video' %}
+                {% if video.kind != 1 %}
+        			{% if video.videoThumbURL %}
+        				<a href="/videos/{{ video.slug }}/"><img src="{{ video.videoThumbURL }}" width="100px" style="float:left; margin:0 10px 0 0;"/></a>
+        			{% else %}
+        				<a href="/videos/{{ video.slug }}/"><img src="{{ STATIC_URL }}/default-video.png" width="100px" style="float:left; margin:0 10px 0 0;"/></<a>
+        			{% endif %}
+        		{% else %}
+        			<a href="/videos/{{ video.slug }}/"><img src="{{ STATIC_URL }}/default-audio.png" width="100px" style="float:left; margin:0 10px 0 0;"/></a>
+        		{% endif %}
+        		<a href="/videos/{{ video.slug }}/"><h4>{{ video.title }}</h4></a>
+        		<span><strong>Beschreibung: </strong>{{ video.description|truncatechars:100 }}</span><br/>
+        		<span><strong>Datum: </strong>{{ video.date }}{% if video.duration %} &bull; <strong>Länge: </strong>{{ video.duration|secondstohms }}{% endif %}</span>
+        {% else %}
+                <img src="{{ STATIC_URL }}/default-playlist.png" width="100px" style="float:left; margin:0 10px 0 0;"/>
+                <a href="/collection/{{ video.slug }}/"><h4>Playlist: {{ video.title }}</h4></a>
+                <span><strong>Beschreibung: </strong>{{ video.description|truncatechars:100 }}</span><br/>
+                <span><strong>Datum: </strong>{{ video.date }}</span>
+        {% endif %}
 	</div>
-	</div>
+    </div>
     {% endfor %}
 {% else %}
     <p>No videos are available.</p>
@@ -105,7 +112,7 @@ class="active"
 {% get_tagcloud as tags for 'videoportal.Video' %}
 <ul>
 {% for tag in tags %}
-<a href="/tags/{{tag.name}}" class="tag-weight-{{tag.weight|floatformat:0}}">{{tag.name}}</a>
+<a href="/tags/{{tag.slug}}" class="tag-weight-{{tag.weight|floatformat:0}}">{{tag.name}}</a>
 {% endfor %}
 <ul>
 </div>

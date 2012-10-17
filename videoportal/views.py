@@ -11,10 +11,10 @@ from django.views.generic.list_detail import object_list
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core import serializers
 
-from videoportal.models import Video, Comment, Channel
+from videoportal.models import Video, Comment, Channel, Collection
 from videoportal.forms import VideoForm, CommentForm
 from transloadit.client import Client
-
+from taggit.models import Tag
 import appsettings as settings
 
 from BitTorrent.btmakemetafile import calcsize, make_meta_file, ignore
@@ -31,12 +31,15 @@ import re
 from threading import Event
 from traceback import print_exc
 from sys import argv
+from operator import attrgetter
+import itertools
 
 def list(request):
     ''' This view is the front page of OwnTube. It just gets the first 15 available video and
     forwards them to the template. We use Django's Paginator to have pagination '''
-    latest_videos_list = Video.objects.filter(encodingDone=True, published=True).order_by('-date','-modified')
-    paginator = Paginator(latest_videos_list,15)
+    queryset = itertools.chain(Video.objects.filter(encodingDone=True, published=True).order_by('-date','-modified'),Collection.objects.all().order_by('-created'))
+    queryset_sorted = sorted(queryset, key=attrgetter('date', 'created'), reverse=True)
+    paginator = Paginator(queryset_sorted,15)
     channel_list = Channel.objects.all()
     
     page = request.GET.get('page')
@@ -54,8 +57,10 @@ def list(request):
 def channel_list(request,slug):
     ''' This view is the view for the channels video list it works almost like the index view'''
     channel = get_object_or_404(Channel, slug=slug)
-    videos_list = Video.objects.filter(encodingDone=True, published=True, channel__slug=slug).order_by('-date','-modified')
-    paginator = Paginator(videos_list,15)
+#    videos_list = Video.objects.filter(encodingDone=True, published=True, channel__slug=slug).order_by('-date','-modified')
+    queryset = itertools.chain(Video.objects.filter(encodingDone=True, published=True, channel__slug=slug).order_by('-date','-modified'),Collection.objects.filter(channel__slug=slug).order_by('-created'))
+    queryset_sorted = sorted(queryset, key=attrgetter('date', 'created'), reverse=True)
+    paginator = Paginator(queryset_sorted,15)
     channel_list = Channel.objects.all()
     page = request.GET.get('page')
     try:
@@ -99,8 +104,16 @@ def iframe(request, slug):
 
 def tag(request, tag):
     ''' Gets all videos for a specified tag'''
-    videolist = Video.objects.filter(encodingDone=True, published=True, tags__name__in=[tag]).order_by('-date')
-    return render_to_response('videos/list.html', {'videos_list': videolist, 'tag':tag},
+    videolist = Video.objects.filter(encodingDone=True, published=True, tags__slug__in=[tag]).order_by('-date')
+    tag_name = Tag.objects.get(slug=tag)
+    return render_to_response('videos/list.html', {'videos_list': videolist, 'tag':tag_name},
+                            context_instance=RequestContext(request))
+
+def collection(request, slug):
+    ''' Gets all videos for a channel'''
+    collection = get_object_or_404(Collection, slug=slug)
+    videolist = collection.videos.filter(encodingDone=True, published=True)
+    return render_to_response('videos/collection.html', {'videos_list': videolist, 'collection':collection},
                             context_instance=RequestContext(request))
                             
 def search(request):
