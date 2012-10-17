@@ -12,7 +12,7 @@ make_published.short_description = "Markierte Videos veroeffentlichen"
 
 def make_torrent_done(modeladmin, request, queryset):
     queryset.update(torrentDone=True)
-make_published.short_description = "Markierte Videos also mit Torrent markieren"
+make_torrent_done.short_description = "Markierte Videos also mit Torrent markieren"
 
 class VideoAdmin (admin.ModelAdmin):
     list_display = ['title','published','encodingDone', 'channel' ,'date']
