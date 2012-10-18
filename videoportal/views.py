@@ -123,7 +123,7 @@ def search(request):
     if ('q' in request.GET) and request.GET['q'].strip():
         query_string = request.GET['q']
         
-        entry_query = get_query(query_string, ['title', 'description',])
+        entry_query = get_query(query_string, ['title', 'description', 'tags__name'])
         
         found_entries = Video.objects.filter(entry_query).order_by('-date')
 
@@ -138,7 +138,7 @@ def search_json(request):
     if ('q' in request.GET) and request.GET['q'].strip():
         query_string = request.GET['q']
 
-        entry_query = get_query(query_string, ['title', 'description',])
+        entry_query = get_query(query_string, ['title', 'description','tags__name'])
 
         found_entries = Video.objects.filter(entry_query).order_by('-date')
 
