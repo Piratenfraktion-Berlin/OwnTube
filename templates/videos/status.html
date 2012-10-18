@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% block active9 %}
+class="active"
+{% endblock %}
+{% block title %}
+- Status
+{% endblock %}
+{% load custom_filters %}
+{% block body %}
+<div class="page-header">
+<h1>Status</h1>
+<p>Diese Seite zeigt alle Videos an, die im Moment noch umgewandelt werden.</p>
+</div>
+<div class="row">
+<div class="span12">
+{% for video in processing_videos %}
+	<div class="row">
+  		<div class="span12 well">
+			<h4>{{ video.title }}</h4>
+   			<span><strong>Datum: </strong>{{ video.date }}</span><br/>
+        		<span><strong>Transcoding fertig:</strong>{% if video.encodingDone %}<i class="icon-ok"></i>{% else %}<i class="icon-remove"></i>{% endif %}    <strong>Torrent erstellt:</strong>{% if video.torrentDone %}<i class="icon-ok"></i>{% else %}<i class="icon-remove"></i>{% endif %}    <strong>Automatisch ver&ouml;ffentlichen:</strong>{% if video.autoPublish %}<i class="icon-ok"></i>{% else %}<i class="icon-remove"></i>{% endif %}</span><br/>
+			<span><strong>Tasks:</strong></span>
+			<ul>
+			{% for task_list in running_tasks %}
+				{% for task in task_list %}
+					{% if task.object_id == video.pk|stringformat:"s" %}
+						<li>{{ task.pid }} &bull; {{ task.method }} &bull; <strong>{{ task.status }}</strong>{% if task.method == "encode_media" %}{% if video.kind == 0 or video.kind == 2 %} &bull; <a id="logMP4_{{ video.pk }}">MP4 Log</a> &bull; <a id="logWEBM_{{ video.pk }}">WEBM Log</a>{% endif %}{% if video.kind == 1 or video.kind == 2 %}&bull; <a id="logMP3_{{ video.pk }}">MP3 Log</a> &bull; <a id="logOGG_{{ video.pk }}">OGG Log</a>{% endif %}{% endif %}</li>
+					{% endif %}
+				{% endfor %}
+			{% empty %}
+			<li>Keine Tasks</li>
+			{% endfor %}
+			</ul>
+		</div>
+	</div>
+{% empty %}
+<p>Gerade werden keine Videos transcodiert</p>
+{% endfor %}
+</div>
+<div class="modal hide fade" id="logModal" style="width:800px;margin-left:-400px;">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Log</h3>
+  </div>
+  <div class="modal-body">
+    <textarea id="logviewer" cols="500" rows="5" style="width:95%">Loading...</textarea>
+  </div>
+  <div class="modal-footer">
+    <a class="btn" id="reloadLog">Reload</a>
+    <a class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
+  </div>
+</div>
+{% endblock %}
+{% block javascript %}
+<script>
+{% for video in processing_videos %}
+	{% for task_list in running_tasks %}
+                                {% for task in task_list %}
+                                        {% if task.object_id == video.pk|stringformat:"s" %}
+						{% if video.kind == 0 or video.kind == 2 %}
+						$("#logMP4_{{video.pk}}").click(function() {
+						$('#logModal').modal('show')
+						$.get("/media/encoded/{{ video.slug }}/encoding_mp4_log.txt", function(data){
+							$('#logviewer').val(data);
+						});
+						$("#reloadLog").click(function() {
+							$.get("/media/encoded/{{ video.slug }}/encoding_mp4_log.txt", function(data){
+								$('#logviewer').val(data);
+								$("#logviewer").animate({
+									scrollTop:$("#logviewer")[0].scrollHeight - $("#logviewer").height()
+								},200,function(){
+	                                                	});
+								});
+						});
+						});
+						$("#logWEBM_{{video.pk}}").click(function() {
+                                                $('#logModal').modal('show')
+                                                $.get("/media/encoded/{{ video.slug }}/encoding_webm_log.txt", function(data){
+                                                        $('#logviewer').val(data);
+                                                });
+						$("#reloadLog").click(function() {
+                                                        $.get("/media/encoded/{{ video.slug }}/encoding_webm_log.txt", function(data){
+								$('#logviewer').val(data);
+								$("#logviewer").animate({
+                                                                        scrollTop:$("#logviewer")[0].scrollHeight - $("#logviewer").height()
+                                                                },200,function(){
+                                                                });
+                                                        });
+                                                });
+                                                });
+						{% endif %}
+						{% if video.kind == 1 or video.kind == 2 %}
+                                                $("#logMP3_{{video.pk}}").click(function() {
+                                                $('#logModal').modal('show')
+                                                $.get("/media/encoded/{{ video.slug }}/encoding_mp3_log.txt", function(data){
+                                                        $('#logviewer').val(data);
+                                                });
+                                                $("#reloadLog").click(function() {
+                                                        $.get("/media/encoded/{{ video.slug }}/encoding_mp3_log.txt", function(data){
+                                                                $('#logviewer').val(data);
+								$("#logviewer").animate({
+                                                                        scrollTop:$("#logviewer")[0].scrollHeight - $("#logviewer").height()
+                                                                },200,function(){
+                                                                });
+                                                        });
+                                                });
+						});
+                                                $("#logOGG_{{video.pk}}").click(function() {
+                                                $('#logModal').modal('show')
+                                                $.get("/media/encoded/{{ video.slug }}/encoding_ogg_log.txt", function(data){
+                                                        $('#logviewer').val(data);
+                                                });
+                                                $("#reloadLog").click(function() {
+                                                        $.get("/media/encoded/{{ video.slug }}/encoding_ogg_log.txt", function(data){
+                                                                $('#logviewer').val(data);
+								$("#logviewer").animate({
+                                                                        scrollTop:$("#logviewer")[0].scrollHeight - $("#logviewer").height()
+                                                                },200,function(){
+                                                                });
+                                                        });
+                                                });
+                                                });
+						{% endif %}
+					{% endif %}
+				{% endfor %}
+	{% endfor %}
+{% endfor %}
+$('#logModal').on('shown', function () {
+$("#logviewer").animate({
+	scrollTop:$("#logviewer")[0].scrollHeight - $("#logviewer").height()
+},200,function(){});
+});
+</script>
+{% endblock %}
