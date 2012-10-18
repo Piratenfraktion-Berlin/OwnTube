@@ -18,7 +18,7 @@ class VideoAdmin (admin.ModelAdmin):
     list_display = ['title','published','encodingDone', 'channel' ,'date']
     ordering = ['-date','-created']
     actions = [make_published,make_torrent_done]
-    list_filter = ('kind', 'published', 'channeel')
+    list_filter = ('kind', 'published', 'channel')
     fieldsets = (
         (None, {
             'fields': ('title', 'date', 'description', 'channel', 'linkURL', 'tags','published')
