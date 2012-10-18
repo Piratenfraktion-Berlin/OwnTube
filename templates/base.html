@@ -58,6 +58,7 @@
               <li {% block active4 %}{% endblock %}><a href="/contact/">Impressum</a></li>
               {% if user.is_authenticated %}
               <li {% block active5 %}{% endblock %}><a href="/submit/">Hochladen</a></li>
+              <li {% block active9 %}{% endblock %}><a href="/status/">Status</a></li>
               <li {% block active6 %}{% endblock %}><a href="/admin/">Admin</a></li>
               <li {% block active7 %}{% endblock %}><a href="/logout/">Logout</a></li>
               {% else %}

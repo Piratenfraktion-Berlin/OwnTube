@@ -229,6 +229,21 @@ def submit(request):
     else:
         return render_to_response('videos/nothing.html',
                             context_instance=RequestContext(request))
+
+@login_required(login_url='/login/')
+def status(request):
+    if settings.USE_BITTORRENT:
+        processing_videos = Video.objects.filter(Q(encodingDone=False) | Q(torrentDone=False))
+    else:
+        processing_videos = Video.objects.filter(encodingDone=False)
+    running_tasks = []
+    for video in processing_videos:
+        tasks = djangotasks.models.Task.objects.filter(model="videoportal.video", object_id=video.pk)
+        running_tasks.append(tasks)
+    return render_to_response('videos/status.html',
+                                    {'processing_videos': processing_videos, 'running_tasks': running_tasks},
+                                    context_instance=RequestContext(request))
+
 @csrf_exempt
 def encodingdone(request):
     ''' This is a somewhat special view: It is called by transloadit to tell
