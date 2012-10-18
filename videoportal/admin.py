@@ -18,7 +18,15 @@ class VideoAdmin (admin.ModelAdmin):
     list_display = ['title','published','encodingDone', 'channel' ,'date']
     ordering = ['-date','-created']
     actions = [make_published,make_torrent_done]
-
+    fieldsets = (
+        (None, {
+            'fields': ('title', 'date', 'description', 'channel', 'linkURL', 'tags','published')
+        }),
+        ('Erweiterte Optionen', {
+            'classes': ('collapse',),
+            'fields': ('user','torrentURL','mp4URL','webmURL','mp3URL','oggURL','videoThumbURL','duration','autoPublish','encodingDone','torrentDone')
+        }),
+    )
 admin.site.register(Video,VideoAdmin)
 
 def make_moderated(modeladmin,request, queryset):

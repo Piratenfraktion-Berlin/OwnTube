@@ -166,6 +166,7 @@ class Video(models.Model):
                 raise StandardError('Encoding OGG Failed')
             
         self.encodingDone = True
+        self.torrentDone = settings.USE_BITTORRENT
         if settings.USE_BITTORRENT:
             self.torrentURL = settings.BITTORRENT_FILES_BASE_URL + self.slug + '.torrent'
             
