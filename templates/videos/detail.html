@@ -9,7 +9,9 @@
 {% endblock %}
 {% block active1 %}class="active"{% endblock %}
 {% block body %}
+<div class="page-header">
 <h1>{{ video.title }}</h1>
+</div>
 <div class="row">
 <div class="span8">
   {% if video.mp4URL or video.webmURL %}
@@ -94,6 +96,14 @@
   {% if video.channel %}
   <dt>Channel</dt>
   <dd><a href="/videos/channel/{{ video.channel.slug }}/">{{ video.channel.name }}</a>
+  {% endif %}
+  {% if video.user %}
+  <dt>Hochgeladen von</dt>
+  {% if video.user.first_name %}
+  <dd>{{ video.user.first_name }} {{ video.user.last_name }}</dd>
+  {% else %}
+  <dd>{{ video.user }}
+  {% endif %}
   {% endif %}
   {% if video.linkURL %}
   <dt>Link:</dt>
