@@ -86,7 +86,6 @@
   </div>
   </div>
   <div class="span4">
-  <h2>Meta</h2>
   <div class="well">
   <dl>
   <dt>Datum</dt>
@@ -125,7 +124,6 @@
   {% if video.mp3URL %}<dd><a href="{{ video.mp3URL }}">Download MP3 Audio</a></dd>{% endif %}
   {% if video.oggURL %}<dd><a href="{{ video.oggURL }}">Download OGG Audio</a></dd>{% endif %}
   </div>
-  <h2>Tags</h2>
   <div class="well">
   <ul>
         {% for tag in video.tags.all %}

@@ -47,35 +47,7 @@ class="active"
     </ul>
   </li>
 </ul>
-{% if videos_list %}
-    {% for video in videos_list %}
-    <div class="row">
-    <div class="span6 well">
-        {% if video.getClassName == 'Video' %}
-                {% if video.kind != 1 %}
-                                {% if video.videoThumbURL %}
-                                        <a href="/videos/{{ video.slug }}/"><img src="{{ video.videoThumbURL }}" width="100px" style="float:left; margin:0 10px 0 0;"/></a>
-                                {% else %}
-                                        <a href="/videos/{{ video.slug }}/"><img src="{{ STATIC_URL }}/default-video.png" width="100px" style="float:left; margin:0 10px 0 0;"/></<a>
-                                {% endif %}
-                        {% else %}
-                                <a href="/videos/{{ video.slug }}/"><img src="{{ STATIC_URL }}/default-audio.png" width="100px" style="float:left; margin:0 10px 0 0;"/></a>
-                        {% endif %}
-                        <a href="/videos/{{ video.slug }}/"><h4>{{ video.title }}</h4></a>
-                        <span><strong>Beschreibung: </strong>{{ video.description|truncatechars:100 }}</span><br/>
-                        <span><strong>Datum: </strong>{{ video.date }}{% if video.duration %} &bull; <strong>Länge: </strong>{{ video.duration|secondstohms }}{% endif %}</span>
-        {% else %}
-                <img src="{{ STATIC_URL }}/default-video.png" width="100px" style="float:left; margin:0 10px 0 0;"/>
-                <a href="/collection/{{ video.slug }}/"><h4>Playlist: {{ video.title }}</h4></a>
-                <span><strong>Beschreibung: </strong>{{ video.description|truncatechars:100 }}</span><br/>
-                <span><strong>Datum: </strong>{{ video.date }}</span>
-        {% endif %}
-        </div>
-    </div>
-    {% endfor %}
-{% else %}
-    <p>No videos are available.</p>
-{% endif %}
+{% include "videos/videolist.html" with video_list=videos_list %}
 <ul class="pager">
 {% if videos_list.has_previous %}
   <li class="previous">
