@@ -25,7 +25,7 @@ class VideoAdmin (admin.ModelAdmin):
         }),
         ('Erweiterte Optionen', {
             'classes': ('collapse',),
-            'fields': ('user','torrentURL','mp4URL','webmURL','mp3URL','oggURL','videoThumbURL','duration','autoPublish','encodingDone','torrentDone')
+            'fields': ('kind','user','torrentURL','mp4URL','webmURL','mp3URL','oggURL','videoThumbURL','duration','autoPublish','encodingDone','torrentDone')
         }),
     )
 admin.site.register(Video,VideoAdmin)
