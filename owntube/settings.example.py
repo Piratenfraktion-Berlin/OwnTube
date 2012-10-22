@@ -141,15 +141,9 @@ INSTALLED_APPS = (
     'taggit_templatetags',
 )
 
-if USE_LDAP:
-    AUTHENTICATION_BACKENDS = (
-        'django_auth_ldap.backend.LDAPBackend',
-        'django.contrib.auth.backends.ModelBackend',
-    )
-else:
-    AUTHENTICATION_BACKENDS = (
-        'django.contrib.auth.backends.ModelBackend',
-    )
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -178,3 +172,4 @@ LOGGING = {
             'propagate': True,
         },
     }
+}
