@@ -4,3 +4,6 @@
 [submodule "django-tasks"]
 	path = django-tasks
 	url = https://github.com/jakecr/django-tasks
+[submodule "videoportal/pytrancode"]
+	path = videoportal/pytrancode
+	url = https://github.com/puzzlet/pytranscode.git
