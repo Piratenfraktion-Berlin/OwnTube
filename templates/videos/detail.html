@@ -163,7 +163,7 @@
          	   var timeListener = function(value) {	
 					$('#id_timecode').val( value.toFixed(2) )
   				}
-    
+               {% if video.kind == 0 or video.kind == 2 %}
                var video_player = projekktor('#player_a', {
 	                /* path to the MP4 Flash-player fallback component */
 	                playerFlashMP4:		'{{ STATIC_URL }}projekktor/jarisplayer.swf',
@@ -175,6 +175,8 @@
                
                video_player.addListener('time', timeListener);
                
+               {% endif %}
+               {% if video.kind == 1}
                var audio_player = projekktor('#player_b', {
 	                /* path to the MP4 Flash-player fallback component */
 	                playerFlashMP4:		'{{ STATIC_URL }}projekktor/jarisplayer.swf',
@@ -185,8 +187,7 @@
                });
                
                audio_player.addListener('time', timeListener);
-               
-
+               {% endif %}
 			  $('.timecode').click(function(){
 			    console.log(this.text);
 			  	video_player.setPlayhead(parseFloat(this.text)); 
