@@ -14,6 +14,7 @@ import os
 import subprocess
 import re
 import decimal 
+from mutagen import File
 
 import transmissionrpc
 import urllib2
@@ -144,7 +145,7 @@ class Video(models.Model):
             
             self.mp3URL = settings.ENCODING_VIDEO_BASE_URL + self.slug +  '/' + self.slug + '.mp3'
             self.oggURL = settings.ENCODING_VIDEO_BASE_URL + self.slug +  '/' + self.slug + '.ogg'
-                        
+            
             outcode = subprocess.Popen(cl_mp3, shell=True)
             
             while outcode.poll() == None:
@@ -165,6 +166,14 @@ class Video(models.Model):
                 self.oggSize = os.path.getsize(outfile_ogg)
             else:
                 raise StandardError('Encoding OGG Failed')
+                
+        if (kind == 1):
+            file = File(self.originalFile.path) # mutagen can automatically detect format and type of tags
+            artwork = file.tags['APIC:'].data # access APIC frame and grab the image
+            with open(outputdir + self.slug + '_cover.jpg', 'wb') as img:
+                img.write(artwork)
+            
+            self.audioThumbURL = settings.ENCODING_VIDEO_BASE_URL + self.slug + '/' + self.slug + '_cover.jpg'
             
         self.encodingDone = True
         self.torrentDone = settings.USE_BITTORRENT
