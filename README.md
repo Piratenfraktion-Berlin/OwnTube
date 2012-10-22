@@ -19,10 +19,10 @@ Status
 
 The status could be described as early beta. It is feature complete but not yet tested in a real world scenario and the code isn't as elegant as it could be.
 
-Requirements
-------------
-
-I would recommend to use virtualenv to create a runtime enviroment for the django site package. Also you would need a settings.py (TODO: Make a generator for this) and you should install all dependencies as in dependencies.txt. Most of them should be available in pip. Also you need to install the transloadit Python "API" which you can find [here](https://github.com/joestump/python-transloadit).
+Requirements & Installation
+---------------------------
+ 
+[Read this](https://github.com/Piratenfraktion-Berlin/OwnTube/wiki/Installation-and-Setup)
 
 Support
 -------
