@@ -12,24 +12,48 @@
 <div class="page-header">
 <h1>{{ video.title }}</h1>
 </div>
-<div class="row">
-<div class="span8">
-  {% if video.mp4URL or video.webmURL %}
+  {% if video.kind == 0 %}
   <div class="row">
-  <div class="span8">
-  <video id="player_a" class="projekktor" poster="{{ video.videoThumbURL }}" title="{{ video.title }}" width="640" height="360" controls>
-    {% if video.webmURL %}<source src="{{ video.webmURL }}" type="video/webm" />{% endif %}
-    {% if video.mp4URL %}<source src="{{ video.mp4URL }}" type="video/mp4" />{% endif %}
-  </video>
-  </div>
+    <div class="span8">
+      <video id="player_a" class="projekktor" poster="{{ video.videoThumbURL }}" title="{{ video.title }}" width="640" height="360" controls>
+        {% if video.webmURL %}<source src="{{ video.webmURL }}" type="video/webm" />{% endif %}
+        {% if video.mp4URL %}<source src="{{ video.mp4URL }}" type="video/mp4" />{% endif %}
+      </video>
+    </div>
   </div>
   {% endif %}
-  {% if video.mp3URL %}
+  {% if video.kind == 1 %}
   <div class="row">
-  <div class="span8">
-  <h2>Audio:</h2>
-	<audio source src="{{ video.mp3URL }}" preload="none"/>
+    <div class="span8">
+	  <audio id="player_b" class="projekktor" title="{{ video.title}}" width="640" height="360" poster="{{ video.videhumbURL }}" controls>
+	    {% if video.mp3URL %}<source src="{{ video.mp3URL }}" type="audio/mp3" />{% endif %}
+        {% if video.oggURL %}<source src="{{ video.oggURL }}" type="audio/ogg-theora" />{% endif %}
+      </audio>
+    </div>
   </div>
+  {% endif %}
+  {% if video.kind == 2 %}
+  <div class="row">
+    <div class="span8">
+      <ul class="nav nav-tabs">
+        <li class="active" id="video_tab"><a>Video</a></li>
+        <li  id="audio_tab"><a>Audio</a></li>
+      </ul>
+      <div id="player_container">
+        <div id="video_player">
+          <video id="player_a" class="projekktor" poster="{{ video.videoThumbURL }}" title="{{ video.title }}" width="640" height="360" controls>
+            {% if video.webmURL %}<source src="{{ video.webmURL }}" type="video/webm" />{% endif %}
+            {% if video.mp4URL %}<source src="{{ video.mp4URL }}" type="video/mp4" />{% endif %}
+          </video>
+        </div>
+        <div id="audio_player" style="display:none;">
+          <audio id="player_b" class="projekktor" title="{{ video.title}}" width="640" height="360" poster="{% if video.audioThumbURL %}{{ video.audioThumbURL }} {% else %} {{ STATIC_URL }}/audio_cover.png {% endif %}" controls>
+	        {% if video.mp3URL %}<source src="{{ video.mp3URL }}" type="audio/mp3" />{% endif %}
+            {% if video.oggURL %}<source src="{{ video.oggURL }}" type="audio/ogg" />{% endif %}
+          </audio>'
+        <div>
+      </div>
+    </div>
   </div>
   {% endif %}
   <div class="row">
@@ -135,13 +159,12 @@
 {% endblock %}
 {% block javascript %}
 <script type="text/javascript">
-		  {% if video.mp4URL or video.webmURL %}
          $(document).ready(function() {
          	   var timeListener = function(value) {	
 					$('#id_timecode').val( value.toFixed(2) )
   				}
     
-               var player = projekktor('.projekktor', {
+               var video_player = projekktor('#player_a', {
 	                /* path to the MP4 Flash-player fallback component */
 	                playerFlashMP4:		'{{ STATIC_URL }}projekktor/jarisplayer.swf',
 	        
@@ -150,20 +173,41 @@
                         streamType: 'http',
                });
                
-               player.addListener('time', timeListener);
+               video_player.addListener('time', timeListener);
+               
+               var audio_player = projekktor('#player_b', {
+	                /* path to the MP4 Flash-player fallback component */
+	                playerFlashMP4:		'{{ STATIC_URL }}projekktor/jarisplayer.swf',
+	        
+	                /* path to the MP3 Flash-player fallback component */
+	                playerFlashMP3:		'{{ STATIC_URL }}projekktor/jarisplayer.swf',
+                        streamType: 'http',
+               });
+               
+               audio_player.addListener('time', timeListener);
+               
 
 			  $('.timecode').click(function(){
 			    console.log(this.text);
-			  	player.setPlayhead(parseFloat(this.text)); 
+			  	video_player.setPlayhead(parseFloat(this.text)); 
+			  	audio_player.setPlayhead(parseFloat(this.text));
 			  	return false;
 			  	})
 			  
          });         
-         {% endif %}
 </script>
-<script>
-  audiojs.events.ready(function() {
-    var as = audiojs.createAll();
-  });
+<script type="text/javascript">				
+$('#video_tab a').click(function (e) {
+  e.preventDefault();
+  $(this).tab('show');
+  $('#video_player').toggle();
+  $('#audio_player').toggle();
+})
+$('#audio_tab a').click(function (e) {
+  e.preventDefault();
+  $(this).tab('show');
+  $('#video_player').toggle();
+  $('#audio_player').toggle();
+})
 </script>
 {% endblock %}
