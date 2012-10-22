@@ -10,7 +10,11 @@
                                         <div class="video-image-container"><a href="/videos/{{ video.slug }}/"><img src="{{ STATIC_URL }}/default-video.png" /></<a></div>
                                 {% endif %}
                         {% else %}
-                                <div class="video-image-container"><a href="/videos/{{ video.slug }}/"><img src="{{ STATIC_URL }}/default-audio.png" /></a></div>
+                        		{% if video.audioThumbURL %}
+                                        <div class="video-image-container"><a href="/videos/{{ video.slug }}/"><img src="{{ video.audioThumbURL }}" /></a></div>
+                                {% else %}
+                                	<div class="video-image-container"><a href="/videos/{{ video.slug }}/"><img src="{{ STATIC_URL }}/default-audio.png" /></a></div>
+                                {% endif %}
                         {% endif %}
                         <a href="/videos/{{ video.slug }}/"><h4>{{ video.title }}</h4></a>
                         <span><strong>Beschreibung: </strong>{{ video.description|truncatechars:90 }}</span><br/>
