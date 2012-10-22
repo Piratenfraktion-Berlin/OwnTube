@@ -20,3 +20,20 @@ hyphens: auto;
 .tag-weight-4{ font-size:1.4em; color:#fd953d; }
 .tag-weight-5{ font-size:1.6em; color:#fd8627; }
 .tag-weight-6{ font-size:1.8em; color:#fd7f23; }
+
+.video-container {
+    display: table;
+    min-height: 90px !important;
+    padding: 0 0 10px;
+}
+
+.video-image-container {
+    display: table-cell;
+    padding: 0 15px;
+    vertical-align: middle;
+    width: 100px;
+}
+
+.video-image-container img {
+    width: 100px;
+}

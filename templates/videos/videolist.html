@@ -1,0 +1,28 @@
+{% load custom_filters %}
+    {% for video in video_list %}
+    <div class="row">
+    <div class="span8 well video-container">
+        {% if video.getClassName == 'Video' %}
+                {% if video.kind != 1 %}
+                                {% if video.videoThumbURL %}
+                                        <div class="video-image-container"><a href="/videos/{{ video.slug }}/"><img src="{{ video.videoThumbURL }}" /></a></div>
+                                {% else %}
+                                        <div class="video-image-container"><a href="/videos/{{ video.slug }}/"><img src="{{ STATIC_URL }}/default-video.png" /></<a></div>
+                                {% endif %}
+                        {% else %}
+                                <div class="video-image-container"><a href="/videos/{{ video.slug }}/"><img src="{{ STATIC_URL }}/default-audio.png" /></a></div>
+                        {% endif %}
+                        <a href="/videos/{{ video.slug }}/"><h4>{{ video.title }}</h4></a>
+                        <span><strong>Beschreibung: </strong>{{ video.description|truncatechars:90 }}</span><br/>
+                        <span><strong>Datum: </strong>{{ video.date }}{% if video.duration %} &bull; <strong>Länge: </strong>{{ video.duration|secondstohms }}{% endif %}</span>
+        {% else %}
+                <div class="video-image-container"><a href="/collection/{{ video.slug }}/"><img src="{{ STATIC_URL }}/default-playlist.png"/></a></div>
+                <a href="/collection/{{ video.slug }}/"><h4>Playlist: {{ video.title }}</h4></a>
+                <span><strong>Beschreibung: </strong>{{ video.description|truncatechars:100 }}</span><br/>
+                <span><strong>Datum: </strong>{{ video.date }}</span>
+        {% endif %}
+        </div>
+    </div>
+    {% empty %}
+    <p>No videos are available.</p>
+    {% endfor %}
