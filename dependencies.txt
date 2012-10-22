@@ -7,3 +7,4 @@ django-taggit-templatetags==0.4.6dev
 django-templatetag-sugar==0.1
 elementtree==1.2.7-20070827-preview
 -e git://github.com/joestump/python-transloadit.git#egg=transloadit
+transmissionrpc==0.8
