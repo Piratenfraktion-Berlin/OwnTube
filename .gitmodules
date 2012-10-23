@@ -3,4 +3,4 @@
 	url = git://github.com/puzzlet/pytranscode.git
 [submodule "djangotasks"]
 	path = djangotasks
-	url = git://github.com/Piratenfraktion-Berlin/djangotasks.git
+	url = git@github.com:Piratenfraktion-Berlin/djangotasks.git
