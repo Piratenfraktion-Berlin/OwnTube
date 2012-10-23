@@ -27,7 +27,7 @@
     <div class="span8">
 	  <audio id="player_b" class="projekktor" title="{{ video.title}}" width="640" height="360" poster="{% if video.audioThumbURL %}{{ video.audioThumbURL }} {% else %} {{ STATIC_URL }}/audio_cover.png {% endif %}" controls>
 	    {% if video.mp3URL %}<source src="{{ video.mp3URL }}" type="audio/mp3" />{% endif %}
-        {% if video.oggURL %}<source src="{{ video.oggURL }}" type="audio/ogg" />{% endif %}
+        {% if video.oggURL %}<source src="{{ video.oggURL }}" type="application/ogg" />{% endif %}
       </audio>
     </div>
   </div>
@@ -49,7 +49,7 @@
         <div id="audio_player" style="display:none;">
           <audio id="player_b" class="projekktor" title="{{ video.title}}" width="640" height="360" poster="{% if video.audioThumbURL %}{{ video.audioThumbURL }} {% else %} {{ STATIC_URL }}/audio_cover.png {% endif %}" controls>
 	        {% if video.mp3URL %}<source src="{{ video.mp3URL }}" type="audio/mp3" />{% endif %}
-            {% if video.oggURL %}<source src="{{ video.oggURL }}" type="audio/ogg" />{% endif %}
+            {% if video.oggURL %}<source src="{{ video.oggURL }}" type="application/ogg" />{% endif %}
           </audio>'
         <div>
       </div>
