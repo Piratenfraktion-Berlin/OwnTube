@@ -7,9 +7,9 @@ Features
 --------
 
 * Encode Videos using ffmpeg or transloadit.com
-* Uses Bittorrent and Transmission to distribute original files (Using original Bittorrent python libs and transmissionrpc)
+* Uses Bittorrent and Transmission to distribute original files (We want to switch to WebSeed if anyone could help with that)
 * Task Managment using djangotasks
-* Uses Projekktor or audio.js to show videos in a modern way
+* Uses Projekktor to show videos and play audio
 * Upload files using AJAX
 * Schedule live streaming events with the livestream app
 * Static pages app for, well, static pages
@@ -17,7 +17,7 @@ Features
 Status
 ------
 
-The status could be described as early beta. It is feature complete but not yet tested in a real world scenario and the code isn't as elegant as it could be.
+The status could be described as early beta. It is feature complete and we are just deploying it under real world conditions and the code isn't as elegant as it could be.
 
 Requirements & Installation
 ---------------------------
