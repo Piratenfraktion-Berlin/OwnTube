@@ -58,7 +58,7 @@ class Video(models.Model):
     oggURL = models.URLField("OGG-URL",blank=True,verify_exists=False)
     oggSize = models.BigIntegerField("OGG Size in Bytes",null=True,blank=True)
     videoThumbURL = models.URLField("Video Thumb-URL",blank=True,verify_exists=False)
-    audioThumbURL = models.URLField("Thumb Thumb-URL",blank=True,verify_exists=False)
+    audioThumbURL = models.URLField("Audio Cover-URL",blank=True,verify_exists=False)
     duration = models.DecimalField(null=True, max_digits=10, decimal_places=2,blank=True)
     autoPublish = models.BooleanField(default=True)
     published = models.BooleanField()
