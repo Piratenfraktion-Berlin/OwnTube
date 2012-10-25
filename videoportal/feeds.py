@@ -138,7 +138,7 @@ class ChannelFeedMP4(Feed):
         return get_object_or_404(Channel, slug=channel_slug)
 
     def title(self, obj):
-        return "OwnTube: Videos in Channel %s" % obj.name
+        return "Piratenfraktion Berlin: %s" % obj.name
 
     def link(self, obj):
         return obj.get_absolute_url()
@@ -147,6 +147,7 @@ class ChannelFeedMP4(Feed):
         return  obj.description
 
     item_enclosure_mime_type = "video/mp4"
+    author_name = "Piratenfraktion Berlin"
 
     def items(self, obj):
         return Video.objects.filter(encodingDone=True, published=True, channel=obj ).exclude(mp4URL='').order_by('-created')
@@ -172,7 +173,7 @@ class ChannelFeedWEBM(Feed):
         return get_object_or_404(Channel, slug=channel_slug)
 
     def title(self, obj):
-        return "OwnTube: Videos in Channel %s" % obj.name
+        return "Piratenfraktion Berlin: %s" % obj.name
 
     def link(self, obj):
         return obj.get_absolute_url()
@@ -181,6 +182,7 @@ class ChannelFeedWEBM(Feed):
         return  obj.description
 
     item_enclosure_mime_type = "video/webm"
+    author_name = "Piratenfraktion Berlin"
 
     def items(self, obj):
         return Video.objects.filter(encodingDone=True, published=True, channel=obj ).exclude(webmURL='').order_by('-created')
@@ -206,7 +208,7 @@ class ChannelFeedMP3(Feed):
         return get_object_or_404(Channel, slug=channel_slug)
 
     def title(self, obj):
-        return "OwnTube: Audio in Channel %s" % obj.name
+        return "Piratenfraktion Berlin: %s" % obj.name
 
     def link(self, obj):
         return obj.get_absolute_url()
@@ -215,6 +217,7 @@ class ChannelFeedMP3(Feed):
         return  obj.description
 
     item_enclosure_mime_type = "audio/mp3"
+    author_name = "Piratenfraktion Berlin"
 
     def items(self, obj):
         return Video.objects.filter(encodingDone=True, published=True, channel=obj ).exclude(mp3URL='').order_by('-created')
@@ -240,7 +243,7 @@ class ChannelFeedOGG(Feed):
         return get_object_or_404(Channel, slug=channel_slug)
 
     def title(self, obj):
-        return "OwnTube: Audio in Channel %s" % obj.name
+        return "Piratenfraktion Berlin: %s" % obj.name
 
     def link(self, obj):
         return obj.get_absolute_url()
@@ -249,6 +252,7 @@ class ChannelFeedOGG(Feed):
         return  obj.description
 
     item_enclosure_mime_type = "audio/ogg"
+    author_name = "Piratenfraktion Berlin"
 
     def items(self, obj):
         return Video.objects.filter(encodingDone=True, published=True, channel=obj ).exclude(oggURL='').order_by('-created')
