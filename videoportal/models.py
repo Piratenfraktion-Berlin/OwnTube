@@ -121,7 +121,7 @@ class Video(models.Model):
             else:
                 raise StandardError('Encoding WEBM Failed')
     
-            outcode = subprocess.Popen(['ffmpeg -i '+ self.originalFile.path + ' -ss 5.0 -vframes 1 -f image2 ' + outputdir + self.slug + '.jpg'],shell = True)
+            outcode = subprocess.Popen(['/usr/local/bin/ffmpeg -i '+ self.originalFile.path + ' -ss 5.0 -vframes 1 -f image2 ' + outputdir + self.slug + '.jpg'],shell = True)
             
             while outcode.poll() == None:
                 pass
@@ -169,12 +169,16 @@ class Video(models.Model):
                 
         if (kind == 1):
             file = File(self.originalFile.path) # mutagen can automatically detect format and type of tags
-            artwork = file.tags['APIC:'].data # access APIC frame and grab the image
-            with open(outputdir + self.slug + '_cover.jpg', 'wb') as img:
-                img.write(artwork)
-            
-            self.audioThumbURL = settings.ENCODING_VIDEO_BASE_URL + self.slug + '/' + self.slug + '_cover.jpg'
-            
+            try:
+                artwork = file.tags['APIC:'].data # access APIC frame and grab the image
+                with open(outputdir + self.slug + '_cover.jpg', 'wb') as img:
+                    img.write(artwork)
+
+                self.audioThumbURL = settings.ENCODING_VIDEO_BASE_URL + self.slug + '/' + self.slug + '_cover.jpg'
+            except KeyError:
+                # Key is not present
+                pass
+
         self.encodingDone = True
         self.torrentDone = settings.USE_BITTORRENT
         if settings.USE_BITTORRENT:
@@ -259,7 +263,7 @@ class Collection(models.Model):
 
 def getLength(filename):
     ''' Just a little helper to get the duration (in seconds) from a video file using ffmpeg '''
-    process = subprocess.Popen(['ffmpeg',  '-i', filename], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    process = subprocess.Popen(['/usr/local/bin/ffmpeg',  '-i', filename], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     stdout, stderr = process.communicate()
     matches = re.search(r"Duration:\s{1}(?P<hours>\d+?):(?P<minutes>\d+?):(?P<seconds>\d+\.\d+?),", stdout, re.DOTALL).groupdict()
     duration = decimal.Decimal(matches['hours'])*3600 + decimal.Decimal(matches['minutes'])*60 + decimal.Decimal(matches['seconds'])
