@@ -43,19 +43,19 @@ class="active"
 </div>
 {% endblock %}
 {% block javascript %}
-<script> 
-   
+<script>
+
 $(document).ready(function() {
   var now = new Date();
   var formatted = now.format("dd.mm.yyyy");
-  $('#id_date').val(formatted); 
+  $('#id_date').val(formatted);
   $('#progress-indicator').hide();
   var bar = $('.bar');
   var percent = $('.percent');
 
   $('#videoForm').ajaxForm({
     beforeSend: function() {
-		$('#progress-indicator').show();
+                $('#progress-indicator').show();
         var percentVal = '0%';
         bar.width(percentVal)
         percent.html(percentVal);
@@ -66,15 +66,15 @@ $(document).ready(function() {
         percent.html(percentVal);
         document.titile = 'OwnTube - Hochladen - ' + percentVal;
     },
-	complete: function(xhr) {
-		if (xhr.status == 200){
-			alert("Danke, ihr Video wird trancodiert und sollte bald zur Verfügung stehen");
-                	window.location.href = "/status/";
-		}else {
-			alert("Tut uns leid, das hat nicht geklappt, bitte noch mal versuchen oder den Admin nerven");
-		}
-	}
-  }); 
+        complete: function(xhr) {
+                if (xhr.status == 200){
+                        alert("Danke, ihr Video wird trancodiert und sollte bald zur Verfügung stehen");
+                        window.location.href = "/status/";
+                }else {
+                        alert("Tut uns leid, das hat nicht geklappt, bitte noch mal versuchen oder den Admin nerven");
+                }
+        }
+  });
 });
 </script>
 {% endblock %}

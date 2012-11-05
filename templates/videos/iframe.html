@@ -13,16 +13,25 @@
 
  </head>
  <body>
- {% if video.mp4URL %}
+{% if video.kind == 0 %}
 <video id="player_a" class="projekktor" poster="{{ video.videoThumbURL }}" title="{{ video.title }}" width="640" height="360" controls>
-    {% if video.webmURL %}<source src="{{ video.webmURL }}" type="video/webm" />{% endif %}
-    {% if video.mp4URL %}<source src="{{ video.mp4URL }}" type="video/mp4" />{% endif %}
-</video> 
-  {% else %}
-  <audio source src="{{ video.mp3URL }}" preload="none"/>
-  {% endif %}
+        {% if video.webmURL %}<source src="{{ video.webmURL }}" type="video/webm" />{% endif %}
+        {% if video.mp4URL %}<source src="{{ video.mp4URL }}" type="video/mp4" />{% endif %}
+      </video>
+{% endif %}
+{% if video.kind == 1 %}
+<audio id="player_a" class="projekktor" title="{{ video.title}}" width="640" height="360" poster="{% if video.audioThumbURL %}{{ video.audioThumbURL }} {% else %} {{ STATIC_URL }}/audio_cover.png {% endif %}" controls>
+            {% if video.mp3URL %}<source src="{{ video.mp3URL }}" type="audio/mp3" />{% endif %}
+        {% if video.oggURL %}<source src="{{ video.oggURL }}" type="application/ogg" />{% endif %}
+      </audio>
+{% endif %}
+{% if video.kind == 2 %}
+<video id="player_a" class="projekktor" poster="{{ video.videoThumbURL }}" title="{{ video.title }}" width="640" height="360" controls>
+            {% if video.webmURL %}<source src="{{ video.webmURL }}" type="video/webm" />{% endif %}
+            {% if video.mp4URL %}<source src="{{ video.mp4URL }}" type="video/mp4" />{% endif %}
+          </video>
+{% endif %}
 <script type="text/javascript">
-		  {% if video.mp4URL or video.webmURL %}
          $(document).ready(function() {
     
                var player = projekktor('.projekktor', {
@@ -31,16 +40,10 @@
 	        
 	                /* path to the MP3 Flash-player fallback component */
 	                playerFlashMP3:		'{{ STATIC_URL }}/projekktor/jarisplayer.swf',  
-                        streamType: 'pseudo',
+                        streamType: 'http',
                         iframe: true
                });			  
          });         
-         {% endif %}
-</script>
-<script>
-  audiojs.events.ready(function() {
-    var as = audiojs.createAll();
-  });
 </script>
 </body>
 </html>
