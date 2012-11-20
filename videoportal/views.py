@@ -105,7 +105,7 @@ def iframe(request, slug):
 def tag(request, tag):
     ''' Gets all videos for a specified tag'''
     videolist = Video.objects.filter(encodingDone=True, published=True, tags__slug__in=[tag]).order_by('-date')
-    tag_name = Tag.objects.get(slug=tag)
+    tag_name = get_object_or_404(Tag, slug=tag)
     return render_to_response('videos/list.html', {'videos_list': videolist, 'tag':tag_name},
                             context_instance=RequestContext(request))
 
