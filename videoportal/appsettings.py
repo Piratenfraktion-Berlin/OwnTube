@@ -24,7 +24,8 @@ ENCODING_OUTPUT_DIR = '/mnt/iscsi0/media/encoded/'
 ENCODING_VIDEO_BASE_URL = 'http://owntube.piratenfraktion-berlin.de/media/encoded/'
 
 USE_BITTORRENT = True
-BITTORRENT_TRACKER_ANNOUNCE_URL = 'udp://tracker.ccc.de:80'
+BITTORRENT_TRACKER_ANNOUNCE_URL = 'udp://tracker.publicbt.com:80'
+BITTORRENT_TRACKER_BACKUP = 'udp://tracker.openbittorrent.com:80,udp://tracker.ccc.de:80,udp://tracker.istole.it:80'
 BITTORRENT_FILES_DIR = '/opt/owntube/owntube/media/torrents/'
 # Where does transmission expects the original files? (This directory must be writeable for both transmission and owntube!)
 BITTORRENT_DOWNLOADS_DIR = '/opt/transmission-folder'
