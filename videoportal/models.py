@@ -16,16 +16,13 @@ import re
 import decimal 
 from mutagen import File
 
-import transmissionrpc
 import urllib2
 import datetime
 import os
-import shutil
 import re
 from threading import Event
 
-from BitTorrent.btmakemetafile import calcsize, make_meta_file, ignore
-
+from BitTornadoABC.btmakemetafile import calcsize, make_meta_file, ignore
 
 KIND_CHOICES = (
     (0, 'Video-only'),
@@ -190,17 +187,19 @@ class Video(models.Model):
     def create_bittorrent(self):
         ''' This is where the bittorrent files are created and transmission is controlled'''
         flag = Event()
-        make_meta_file(str(self.originalFile.path), settings.BITTORRENT_TRACKER_ANNOUNCE_URL, flag = flag, progress_percent=0, piece_len_exp = 18, target = settings.BITTORRENT_FILES_DIR + self.slug + '.torrent')
+        make_meta_file(str(self.originalFile.path),
+            settings.BITTORRENT_TRACKER_ANNOUNCE_URL,
+            params = {'target' : settings.BITTORRENT_FILES_DIR
+                                            + self.slug + '.torrent',
+             'piece_size_pow2' : 18,
+             'announce_list': settings.BITTORRENT_TRACKER_BACKUP,
+             'url_list' : str(self.originalFile.url)},
+             flag = flag,
+             progress_percent=0)
         self.torrentURL = settings.BITTORRENT_FILES_BASE_URL + self.slug + '.torrent'
-        shutil.copy(str(self.originalFile.path), settings.BITTORRENT_DOWNLOADS_DIR)
         self.torrentDone = True
         self.published = self.autoPublish
         self.save()
-        try:
-            tc = transmissionrpc.Client(settings.TRANSMISSION_HOST, port=settings.TRANSMISSION_PORT)
-            tc.add_uri(self.torrentURL, download_dir=settings.BITTORRENT_DOWNLOADS_DIR)
-        except Exception, e:
-            print "Error:", e
         
 class Comment(models.Model):
     ''' The model for our comments, please note that (right now) OwnTube comments are moderated only'''

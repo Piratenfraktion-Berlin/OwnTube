@@ -17,8 +17,6 @@ from transloadit.client import Client
 from taggit.models import Tag
 import appsettings as settings
 
-from BitTorrent.btmakemetafile import calcsize, make_meta_file, ignore
-
 import djangotasks
 
 import simplejson as json
