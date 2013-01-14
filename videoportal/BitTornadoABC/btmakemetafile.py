@@ -76,7 +76,7 @@ def make_meta_file(file, url, params = None, flag = Event(),
     else:
         piece_len_exp = default_piece_len_exp
     if 'target' in params and params['target']:
-        f = join(params['target'], split(normpath(file))[1] + '.torrent')
+        f = params['target']
     else:
         a, b = split(file)
         if b == '':
@@ -135,6 +135,8 @@ def make_meta_file(file, url, params = None, flag = Event(),
         data['httpseeds'] = params['real_httpseeds']
     elif 'httpseeds' in params and params['httpseeds']:
         data['httpseeds'] = params['httpseeds'].split('|')
+    if 'url_list' in params and params['url_list']:
+        data['url-list'] = params['url_list']
         
     h.write(bencode(data))
     h.close()
