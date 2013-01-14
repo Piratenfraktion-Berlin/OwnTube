@@ -1,0 +1,30 @@
+D/BitTorrent////
+/.cvsignore/1.1/Sun Feb 22 19:52:45 2004//
+D/BT1////
+/PSYCO.py/1.1/Thu May 13 13:37:44 2004//
+/bitfield.py/1.10/Thu May 13 13:37:45 2004//
+/CurrentRateMeasure.py/1.4/Thu May 13 15:08:12 2004//
+/clock.py/1.2/Thu May 13 16:17:51 2004//
+/RateMeasure.py/1.6/Fri May 14 18:08:56 2004//
+/inifile.py/1.2/Sat May 15 14:33:02 2004//
+/ServerPortHandler.py/1.9/Sat May 15 19:59:11 2004//
+D/GUI////
+/parseargs.py/1.5/Tue May 25 18:53:17 2004//
+/parsedir.py/1.16/Fri Jun 25 17:41:39 2004//
+/RawServer.py/1.27/Sat Jul 10 17:46:08 2004//
+/launchmanycore.py/1.34/Sat Jul 10 17:48:21 2004//
+/selectpoll.py/1.4/Sat Jul 10 21:52:09 2004//
+/ConnChoice.py/1.2/Sun Jul 11 01:11:36 2004//
+/ConfigDir.py/1.22/Sun Jul 11 04:57:29 2004//
+/RateLimiter.py/1.12/Mon Jul 12 14:34:36 2004//
+/bencode.py/1.12/Fri Oct 29 15:22:41 2004//
+/ConfigReader.py/1.25/Mon Nov  1 16:37:26 2004//
+/piecebuffer.py/1.3/Thu Nov  4 16:09:57 2004//
+/zurllib.py/1.4/Mon Nov 22 00:22:59 2004//
+/CreateIcons.py/1.3/Tue Nov 30 21:59:47 2004//
+/download_bt1.py/1.59/Tue Dec  7 06:16:08 2004//
+/SocketHandler.py/1.25/Wed Dec 15 03:55:04 2004//
+/natpunch.py/1.11/Wed Dec 15 03:54:42 2004//
+/HTTPHandler.py/1.6/Fri Dec 17 00:26:34 2004//
+/subnetparse.py/1.5/Mon Dec 20 20:15:23 2004//
+/__init__.py/1.28/Mon Dec 20 20:18:18 2004//
