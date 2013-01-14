@@ -7,20 +7,20 @@
                                 {% if video.videoThumbURL %}
                                         <div class="video-image-container"><a href="/videos/{{ video.slug }}/"><img src="{{ video.videoThumbURL }}" /></a></div>
                                 {% else %}
-                                        <div class="video-image-container"><a href="/videos/{{ video.slug }}/"><img src="{{ STATIC_URL }}/default-video.png" /></<a></div>
+                                        <div class="video-image-container"><a href="/videos/{{ video.slug }}/"><img src="{{ STATIC_URL }}default-video.png" /></<a></div>
                                 {% endif %}
                         {% else %}
                         		{% if video.audioThumbURL %}
                                         <div class="video-image-container"><a href="/videos/{{ video.slug }}/"><img src="{{ video.audioThumbURL }}" /></a></div>
                                 {% else %}
-                                	<div class="video-image-container"><a href="/videos/{{ video.slug }}/"><img src="{{ STATIC_URL }}/default-audio.png" /></a></div>
+                                	<div class="video-image-container"><a href="/videos/{{ video.slug }}/"><img src="{{ STATIC_URL }}default-audio.png" /></a></div>
                                 {% endif %}
                         {% endif %}
                         <a href="/videos/{{ video.slug }}/"><h4>{{ video.title }}</h4></a>
                         <span><strong>Beschreibung: </strong>{{ video.description|truncatechars:90 }}</span><br/>
                         <span><strong>Datum: </strong>{{ video.date }}{% if video.duration %} &bull; <strong>Länge: </strong>{{ video.duration|secondstohms }}{% endif %}</span>
         {% else %}
-                <div class="video-image-container"><a href="/collection/{{ video.slug }}/"><img src="{{ STATIC_URL }}/default-playlist.png"/></a></div>
+                <div class="video-image-container"><a href="/collection/{{ video.slug }}/"><img src="{{ STATIC_URL }}default-playlist.png"/></a></div>
                 <a href="/collection/{{ video.slug }}/"><h4>Playlist: {{ video.title }}</h4></a>
                 <span><strong>Beschreibung: </strong>{{ video.description|truncatechars:100 }}</span><br/>
                 <span><strong>Datum: </strong>{{ video.date }}</span>
