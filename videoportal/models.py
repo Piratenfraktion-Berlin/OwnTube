@@ -169,15 +169,12 @@ class Video(models.Model):
                 
         if (kind == 1):
             file = File(self.originalFile.path) # mutagen can automatically detect format and type of tags
-            try:
+            if file.tags and 'APIC:' in file.tags and file.tags['APIC:']:
                 artwork = file.tags['APIC:'].data # access APIC frame and grab the image
                 with open(outputdir + self.slug + '_cover.jpg', 'wb') as img:
                     img.write(artwork)
 
                 self.audioThumbURL = settings.ENCODING_VIDEO_BASE_URL + self.slug + '/' + self.slug + '_cover.jpg'
-            except KeyError:
-                # Key is not present
-                pass
 
         self.encodingDone = True
         self.torrentDone = settings.USE_BITTORRENT
