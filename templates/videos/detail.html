@@ -3,8 +3,8 @@
 {% load markup %}
 {% block title %} - {{ video.title }}{% endblock %}
 {% block head %}
-<script type="text/javascript" src="{{ STATIC_URL }}/projekktor/projekktor.min.js"></script>
-<link rel="stylesheet" href="{{ STATIC_URL }}/projekktor/theme/style.css" type="text/css" media="screen" />
+<script type="text/javascript" src="{{ STATIC_URL }}projekktor/projekktor.min.js"></script>
+<link rel="stylesheet" href="{{ STATIC_URL }}projekktor/theme/style.css" type="text/css" media="screen" />
 {% endblock %}
 {% block active1 %}class="active"{% endblock %}
 {% block body %}
@@ -26,7 +26,7 @@
   {% if video.kind == 1 %}
   <div class="row">
     <div class="span8">
-	  <audio id="player_b" class="projekktor" title="{{ video.title}}" width="640" height="360" poster="{% if video.audioThumbURL %}{{ video.audioThumbURL }} {% else %} {{ STATIC_URL }}/audio_cover.png {% endif %}" controls>
+	  <audio id="player_b" class="projekktor" title="{{ video.title}}" width="640" height="360" poster="{% if video.audioThumbURL %}{{ video.audioThumbURL }} {% else %} {{ STATIC_URL }}audio_cover.png {% endif %}" controls>
 	    {% if video.mp3URL %}<source src="{{ video.mp3URL }}" type="audio/mp3" />{% endif %}
         {% if video.oggURL %}<source src="{{ video.oggURL }}" type="application/ogg" />{% endif %}
       </audio>
@@ -48,7 +48,7 @@
           </video>
         </div>
         <div id="audio_player" style="display:none;">
-          <audio id="player_b" class="projekktor" title="{{ video.title}}" width="640" height="360" poster="{% if video.audioThumbURL %}{{ video.audioThumbURL }} {% else %} {{ STATIC_URL }}/audio_cover.png {% endif %}" controls>
+          <audio id="player_b" class="projekktor" title="{{ video.title}}" width="640" height="360" poster="{% if video.audioThumbURL %}{{ video.audioThumbURL }} {% else %} {{ STATIC_URL }}audio_cover.png {% endif %}" controls>
 	        {% if video.mp3URL %}<source src="{{ video.mp3URL }}" type="audio/mp3" />{% endif %}
             {% if video.oggURL %}<source src="{{ video.oggURL }}" type="application/ogg" />{% endif %}
           </audio>'
