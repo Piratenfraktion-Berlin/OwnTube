@@ -6,3 +6,4 @@ settings.py
 media/*
 static_files/*
 media
+appsettings.py
