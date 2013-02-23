@@ -20,7 +20,6 @@ import appsettings as settings
 import djangotasks
 
 import simplejson as json
-import transmissionrpc
 import urllib2
 import datetime
 import os
