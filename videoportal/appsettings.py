@@ -1,4 +1,4 @@
-# Transloadit.com Settings
+
 
 # Should we use transloadit? Otherwise we will try ffmpeg
 USE_TRANLOADIT = False
@@ -27,16 +27,8 @@ USE_BITTORRENT = True
 BITTORRENT_TRACKER_ANNOUNCE_URL = 'udp://tracker.publicbt.com:80'
 BITTORRENT_TRACKER_BACKUP = 'udp://tracker.openbittorrent.com:80,udp://tracker.ccc.de:80,udp://tracker.istole.it:80'
 BITTORRENT_FILES_DIR = '/opt/owntube/owntube/media/torrents/'
-# Where does transmission expects the original files? (This directory must be writeable for both transmission and owntube!)
-BITTORRENT_DOWNLOADS_DIR = '/opt/transmission-folder'
-# What is the URL of the BITTORRENT_FILES_DIR?
 BITTORRENT_FILES_BASE_URL = 'http://owntube.piratenfraktion-berlin.de/media/torrents/'
 
-# Host and port Transmission is listining on (probably localhost
-TRANSMISSION_HOST = '127.0.0.1'
-TRANSMISSION_PORT = 9091
-
 # Base-Dir vor Hotfolders
-
 HOTFOLDER_BASE_DIR = '/mnt/iscsi0/videostore/robotron/'
 HOTFOLDER_MOVE_TO_DIR = '/opt/owntube/owntube/media/raw/'
