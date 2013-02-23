@@ -1,11 +1,10 @@
 body {
-
--webkit-hyphens: auto;
--moz-hyphens: auto;
--o-hyphens: auto;
--ms-hyphens: auto;
-hyphens: auto;
-
+    padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -o-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
 }
 
 .iframe-code {
