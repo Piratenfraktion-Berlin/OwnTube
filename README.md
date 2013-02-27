@@ -7,7 +7,7 @@ Features
 --------
 
 * Encode Videos using ffmpeg or transloadit.com
-* Uses Bittorrent and Transmission to distribute original files (We want to switch to WebSeed if anyone could help with that)
+* Now using WebSeeds! Big "thank you" to @hubx
 * Task Managment using djangotasks
 * Uses Projekktor to show videos and play audio
 * Upload files using AJAX
