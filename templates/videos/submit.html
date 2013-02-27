@@ -6,6 +6,8 @@ class="active"
 {% block head %}
 <script type="text/javascript" src="{{ STATIC_URL }}jquery.form.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}date.format.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}jquery.validate.min.js"></script>
+
 {% endblock %}
 {% block body %}
 <div class="page-header">
@@ -26,6 +28,9 @@ class="active"
         	</div>
         	<div class="controls">
         	{{ field }}
+            {% if field.field.required %}
+            *
+            {% endif %}
         	</div>
         </div>
     {% endfor %}
@@ -44,16 +49,25 @@ class="active"
 {% endblock %}
 {% block javascript %}
 <script>
-
 $(document).ready(function() {
+
   var now = new Date();
   var formatted = now.format("dd.mm.yyyy");
   $('#id_date').val(formatted);
   $('#progress-indicator').hide();
   var bar = $('.bar');
   var percent = $('.percent');
+  var validator = $('#videoForm').validate({
+    rules: {
+    {% for field in submit_form %}
+    {% if field.field.required %}
+      {{ field.name }}: "required",
+    {% endif %}
+    {% endfor %}
+  }})
 
   $('#videoForm').ajaxForm({
+    beforeSubmit: validator,
     beforeSend: function() {
                 $('#progress-indicator').show();
         var percentVal = '0%';
