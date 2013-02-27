@@ -6,6 +6,8 @@ class="active"
 {% block head %}
 <script type="text/javascript" src="{{ STATIC_URL }}jquery.form.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}date.format.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}jquery.validate.min.js"></script>
+
 {% endblock %}
 {% block body %}
 <div class="page-header">
@@ -29,7 +31,6 @@ class="active"
             {% if field.field.required %}
             *
             {% endif %}
-
         	</div>
         </div>
     {% endfor %}
@@ -64,8 +65,6 @@ $(document).ready(function() {
     {% endif %}
     {% endfor %}
   }})
-  // force jQuery validator over HTML5 validation
-  $('#videoForm').attr('novalidate', 'novalidate');
 
   $('#videoForm').ajaxForm({
     beforeSubmit: validator,
