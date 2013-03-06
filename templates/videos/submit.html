@@ -57,17 +57,17 @@ $(document).ready(function() {
   $('#progress-indicator').hide();
   var bar = $('.bar');
   var percent = $('.percent');
-  var validator = $('#videoForm').validate({
-    rules: {
-    {% for field in submit_form %}
-    {% if field.field.required %}
-      {{ field.name }}: "required",
-    {% endif %}
-    {% endfor %}
+  $('#videoForm').validate({
+      rules: {
+        {% for field in submit_form %}
+        {% if field.field.required %}
+        {{ field.name }}: "required",
+        {% endif %}
+        {% endfor %}
   }})
 
   $('#videoForm').ajaxForm({
-    beforeSubmit: validator,
+    beforeSubmit: function() { return $('#videoForm').valid() },
     beforeSend: function() {
                 $('#progress-indicator').show();
         var percentVal = '0%';
