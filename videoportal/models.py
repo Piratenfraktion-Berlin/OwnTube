@@ -44,7 +44,7 @@ class Video(models.Model):
     description = models.TextField(u"Beschreibung")
     linkURL = models.URLField("Link",blank=True,verify_exists=False)
     modified = models.DateTimeField(auto_now=True)
-    originalFile = models.FileField("Datei",upload_to="raw/%Y/%m/%d/",blank=True, max_length=2048)
+    originalFile = models.FileField("Datei",upload_to="raw/%Y/%m/%d/", max_length=2048)
     tags = TaggableManager("Tags")
     title = models.CharField(u"Titel",max_length=200)
 
