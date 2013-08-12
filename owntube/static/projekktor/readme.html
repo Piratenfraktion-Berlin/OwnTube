@@ -9,20 +9,20 @@
     </style>
 
     <!-- Load player theme -->
-    <link rel="stylesheet" href="theme/style.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="theme/maccaco/projekktor.style.css" type="text/css" media="screen" />
 
     <!-- Load jquery -->
     <script type="text/javascript" src="jquery-1.7.2.min.js"></script>
 
     <!-- load projekktor -->
-    <script type="text/javascript" src="projekktor-1.1.02r114.min.js"></script>
+    <script type="text/javascript" src="projekktor-1.2.35r319.min.js"></script>
 
 </head>
 <body>
 
-    <h1>Thanks for downloading Projekktor <span id="projekktorver"></span></h1>
+    <h1>W00t!! Thanx for downloading Projekktor V<span id="projekktorver"></span>.</h1>
     <p>
-	This file is intended to give a quick introduction on how to install and use Projekktor Zwei.
+	This file is intended to give a quick introduction on how to install and use Projekktor.
 	Please have a look at the source in order to check out what&acute;s going on here.
 	More detailed information and a documentation can be found online:
     </p>
@@ -33,11 +33,10 @@
 	<li><a href="http://www.projekktor.com/downloads.php">More Downloads</a></li>
 	<li><a href="http://www.projekktor.com/license.php">GPL License</a></li>
 	<li><a href="http://www.projekktor.com/donate.php"><b>Support this projekkt: Consider a donation</b></a></li>
-	<li><a href="http://www.projekktor.com/donate.php#buy"><b>Buy a Business license</b></a></li>
-	<li><a href="http://www.spinningairwhale.com/contact/"><b>Need customizations or Support? Get in touch.</b></a></li>
+	<li><a href="http://www.spinningairwhale.com/contact/?via=distro"><b>Need customizations or Support? Get in touch.</b></a></li>
     </ul>
     <p>
-	brought to you by <a href="http://www.spinningairwhale.com">spinning airwhale media</a> - Free the Princess of Agentia!
+	brought to you by <a href="http://www.spinningairwhale.com">spinning airwhale</a> - web|media|interfaces
     </p>
 
     <h2>Example - One Video, OGG+MP4+WEBM, Theme: Maccaco by <a href="http://www.porkhead.org">porkhead</a></h2>
@@ -51,11 +50,17 @@
 
     <script type="text/javascript">
 	$(document).ready(function() {
-	    projekktor('#player_a'); // instantiation
+	    projekktor(
+                '#player_a', // destination-container-selector-fuzz a la jQuery
+                {}, // an empty Projekktor-ccofig-object
+                function(player) { // "onready" callback -
+                    $('#projekktorver').html( player.getPlayerVer() );
+                }
+	    );
 	});
     </script>
 
-    <h3>please read the <a href="http://www.projekktor.com/changelog.php">changelog</a></h3>
+    <h3 style="color: red;">Already using Projekktor? Please don&acute;t forget to read the <a href="http://www.projekktor.com/changelog.php">changelog</a>.</h3>
 
 </body>
 </html>

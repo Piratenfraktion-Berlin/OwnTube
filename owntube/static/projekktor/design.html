@@ -11,12 +11,7 @@
 	    width: 800px;
 	}
 	
-	.pplogo {
-	    width: 50px;
-	    height: 50px;
-	    background-color: #30FCFC;
-	}
-	
+
 	/*
 	    in case you add the class "fade" to your control-bar make sure it is
 	    also set invisible once inactive - e.g. via "display: none / block"
@@ -91,13 +86,24 @@
 	    cursor: pointer;
 	}
 	
+	.ppscrubberdrag {
+		cursor: pointer;
+		z-index: 302;
+		position: absolute;
+		background-color: transparent;    
+		top:0;
+		left:0;
+		height: 25px;
+		width: 100%;    
+	}	
+	
     </style>
 
     <!-- Load jquery -->
-    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="jquery-1.7.2.min.js"></script>
 
     <!-- load projekktor -->
-    <script type="text/javascript" src="projekktor.min.js"></script>
+    <script type="text/javascript" src="projekktor-1.2.33r289.min.js"></script>
 
 </head>
 <body>
@@ -107,9 +113,6 @@
     <!-- display holds all visual media elements to be played back -->
     <div class="ppdisplay"></div>
     	
-    <!-- and optional logo the operator may set -->
-    <img class="pplogo" src="yourlogo.png" />
-    
     <!-- the buffering-indicator - typically an animated gif or something -->
     <div class="ppbuffering">buffering</div>
     
@@ -157,8 +160,9 @@
 	
 	<!-- start: scrubber bar -->
 	<div class="ppscrubber"> <!-- the rail  -->
-	    <div class="pploaded"></div> <!-- percent buffered indicator (width in %), clickable -->
-	    <div class="ppplayhead"></div> <!-- percent elapsed / playhead position (width in %), clickable -->
+	    <div class="pploaded"></div> <!-- percent buffered indicator (width in %) -->
+	    <div class="ppplayhead"></div> <!-- percent elapsed / playhead position (width in %) -->
+		<div class="ppscrubberdrag"></div> <!-- scrubber click catcher, width: 100% -->
 	</div>
 	<!-- end: scrubber bar -->
 
