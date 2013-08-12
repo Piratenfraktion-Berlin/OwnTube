@@ -24,7 +24,6 @@
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <script src="{{ STATIC_URL }}jquery.min.js"></script>
     {% block head %}
     {% endblock %}
   </head>
@@ -66,10 +65,8 @@
 {% block body %}{% endblock %}
 </div> <!-- /container -->
 
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="{{ STATIC_URL }}bootstrap/js/bootstrap.js"></script>
+    <script src="{{ STATIC_URL }}jquery-1.9.1.min.js"></script>
+    <script src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>
 	{% block javascript %}{% endblock %}
   </body>
 </html>
