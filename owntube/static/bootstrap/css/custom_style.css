@@ -1,10 +1,23 @@
 body {
-    padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+    padding-top: 5px;
     -webkit-hyphens: auto;
     -moz-hyphens: auto;
     -o-hyphens: auto;
     -ms-hyphens: auto;
     hyphens: auto;
+}
+
+@font-face {
+    font-family: 'DejaWeb';
+    font-style: normal;
+    font-weight: normal;
+    src: local('☺'), local('DejaWeb'), url('/static/fonts/dejaweb.woff') format('woff');
+}
+@font-face {
+    font-family: 'PoliticsHeadBold';
+    font-style: normal;
+    font-weight: normal;
+    src: local('☺'), local('PoliticsHeadBold'), url('/static/fonts/PoliticsHeadBold.woff') format('woff');
 }
 
 .iframe-code {
